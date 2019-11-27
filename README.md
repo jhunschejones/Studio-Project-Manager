@@ -1,1 +1,1 @@
-# studio-project-manager
+# Studio Project Manager
