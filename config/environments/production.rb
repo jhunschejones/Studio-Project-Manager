@@ -81,7 +81,7 @@ Rails.application.configure do
     address:              'mail.hover.com',
     port:                 465,
     domain:               'hunschejones.com',
-    user_name:            'joshua@hunschejones.com',
+    user_name:            ENV['EMAIL_USERNAME'],
     password:             ENV['EMAIL_PASSWORD'],
     authentication:       'plain',
     enable_starttls_auto: true
