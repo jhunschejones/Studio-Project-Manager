@@ -24,6 +24,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'bulma-rails'
 gem 'font_awesome5_rails'
+gem 'devise'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
