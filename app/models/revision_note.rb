@@ -1,3 +1,4 @@
 class RevisionNote < ApplicationRecord
-  belongs_to :track, :user
+  belongs_to :track
+  belongs_to :user
 end
