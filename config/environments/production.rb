@@ -78,9 +78,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # https://help.hover.com/hc/en-us/articles/217281777-Email-server-settings
   config.action_mailer.smtp_settings = {
-    address:              'smtp.hover.com',
+    address:              'mail.hover.com',
     port:                 465,
-    domain:               'hunschejones.com',
+    domain:               'herokuapp.com',
     user_name:            ENV['EMAIL_USERNAME'],
     password:             ENV['EMAIL_PASSWORD'],
     authentication:       :plain,
