@@ -78,11 +78,11 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   # https://help.hover.com/hc/en-us/articles/217281777-Email-server-settings
   config.action_mailer.smtp_settings = {
-    address:              'mail.hover.com',
+    address:              'smtp.sendgrid.net',
     port:                 465,
     domain:               'hunschejones.com',
-    user_name:            ENV['EMAIL_USERNAME'],
-    password:             ENV['EMAIL_PASSWORD'],
+    user_name:            ENV['SENDGRID_PASSWORD'],
+    password:             ENV['SENDGRID_USERNAME'],
     authentication:       'plain',
     enable_starttls_auto: true
   }
