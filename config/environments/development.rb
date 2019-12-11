@@ -42,18 +42,15 @@ Rails.application.configure do
 
   # DELIVER EMAILS IN DEVELOPMENT MODE:
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
-
-  config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_options = { from: 'joshua@hunschejones.com' }
+  config.action_mailer.default_options = { from: 'joshuahunschejones@gmail.com' }
   config.action_mailer.delivery_method = :smtp
-  # https://help.hover.com/hc/en-us/articles/217281777-Email-server-settings
   config.action_mailer.smtp_settings = {
-    address:              'mail.hover.com',
-    port:                 465,
-    domain:               'hunschejones.com',
-    user_name:            'joshua@hunschejones.com',
+    address:              'smtp.gmail.com',
+    port:                 587,
+    domain:               'localhost:3000',
+    user_name:            'joshuahunschejones@gmail.com',
     password:             ENV['EMAIL_PASSWORD'],
     authentication:       'plain',
     enable_starttls_auto: true

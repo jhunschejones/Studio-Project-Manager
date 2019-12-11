@@ -48,17 +48,17 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  config.log_level = :warn
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
   # Use a different cache store in production.
-  # config.cache_store = :redis_cache_store, {
-  #   url: ENV['REDIS_URL'],
-  #   expires_in: 2.days,
-  #   size: 25.megabytes
-  # }
+  config.cache_store = :redis_cache_store, {
+    url: ENV['REDIS_URL'],
+    expires_in: 2.days,
+    size: 25.megabytes
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque
@@ -71,22 +71,21 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # ENABLE EMAILS IN PRODUCTION:
-  # config.action_mailer.default_url_options = { host: 'counseling-book-tags-2.herokuapp.com', protocol: 'https' }
-
-  # config.action_mailer.delivery_method = :sendmail
-  # config.action_mailer.perform_deliveries = true
-  # config.action_mailer.raise_delivery_errors = true
-  # config.action_mailer.default_options = { from: 'counselingtags@gmail.com' }
-  # config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #   address:              'smtp.gmail.com',
-  #   port:                 587,
-  #   domain:               'counselingbooktags.com',
-  #   user_name:            'counselingtags@gmail.com',
-  #   password:             ENV['EMAIL_PASSWORD'],
-  #   authentication:       'plain',
-  #   enable_starttls_auto: true
-  # }
+  config.action_mailer.default_url_options = { host: 'studio-project-manager.herokuapp.com', protocol: 'https' }
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default_options = { from: 'joshua@hunschejones.com' }
+  config.action_mailer.delivery_method = :smtp
+  # https://help.hover.com/hc/en-us/articles/217281777-Email-server-settings
+  config.action_mailer.smtp_settings = {
+    address:              'mail.hover.com',
+    port:                 465,
+    domain:               'hunschejones.com',
+    user_name:            'joshua@hunschejones.com',
+    password:             ENV['EMAIL_PASSWORD'],
+    authentication:       'plain',
+    enable_starttls_auto: true
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
