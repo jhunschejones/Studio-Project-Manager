@@ -1,2 +1,22 @@
-<h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<div class="project-form">
+  <br/>
+
+  <h2 class="title is-4">Edit project details</h2>
+
+  <%= form_for(@project, url: project_path(@project), html: { method: :patch }) do |f| %>
+    <div class="field">
+      <%= f.label :title %><br />
+      <%= f.text_field :title, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_area :description, class: "textarea" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+</div>
