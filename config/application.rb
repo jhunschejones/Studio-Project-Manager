@@ -18,5 +18,8 @@ module StudioProjectManager
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Disable field_with_errors wrapper-div on form error
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
   end
 end

@@ -22,8 +22,20 @@
 
       <div class="navbar-menu" data-target="main-nav.mainNavMenu">
         <div class="navbar-start">
-          <%= link_to("My Projects", projects_path, class: "navbar-item has-text-dark") %>
-          <%= link_to("My Account", user_path(current_user || 0), class: "navbar-item has-text-dark") %>
+          <%= link_to(projects_path, class: "navbar-item has-text-dark") do %>
+            <span class="icon is-small">
+              <i class="fas fa-tasks"></i>
+            </span>
+            &nbsp;&nbsp;
+            <span>My Projects</span>
+          <% end %>
+          <%= link_to(user_path(current_user || 0), class: "navbar-item has-text-dark") do %>
+            <span class="icon is-small">
+              <i class="fas fa-user"></i>
+            </span>
+            &nbsp;&nbsp;
+            <span>My Account</span>
+          <% end %>
         </div>
 
         <div class="navbar-end">
@@ -46,8 +58,21 @@
         </div>
       </div>
     </nav>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+
+    <% if notice %>
+      <div class="flash notification is-primary" data-controller="flash">
+        <button class="delete" data-action="click->flash#close"></button>
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <% if alert %>
+      <div class="flash notification is-danger" data-controller="flash">
+        <button class="delete" data-action="click->flash#close"></button>
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
