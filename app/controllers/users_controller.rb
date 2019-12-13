@@ -6,6 +6,6 @@ class UsersController < ApplicationController
       redirect_to user_path(current_user.id)
     end
 
-    @user = User.find(params[:id])
+    @user = current_user
   end
 end

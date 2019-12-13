@@ -3,5 +3,21 @@
   <h1 class="title is-4 project-title"><%= @project.title %></h1>
   <p class="project-description"><%= @project.description %></p>
   <br/>
+  <h3 class="title is-5 users-header">Users on this project</h3>
+  <ul>
+    <% @project.users.each do |user| %>
+      <li><%= user.name %></li>
+    <% end %>
+  </ul>
+  <br/>
+  <h3 class="title is-5 users-header">Files for this project</h3>
+  <ul>
+    <% @files.each do |file| %>
+      <li><%= link_to file.name, file.url %></li>
+    <% end %>
+  </ul>
+
+  <br/>
   <%= link_to("Edit", edit_project_path(@project), class: "button is-info") %>
+  <%= link_to("Archive", project_path(@project), class: "button is-danger", data: { confirm: "Are you sure you want to archive this project?" }, method: :delete) %>
 </div>
