@@ -4,6 +4,7 @@ class CreateProjects < ActiveRecord::Migration[6.0]
       t.string :title, null: false
       t.text :description
       t.string :upload_link
+      t.datetime :archived_on
       t.boolean :is_archived, default: false
 
       t.timestamps

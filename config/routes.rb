@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :projects, only: [:index, :show, :edit, :update]
+  resources :projects, except: [:delete]
+  delete '/projects/:id/files/:file_id', to: 'projects#destroy_file', as: 'destroy_file_path'
   resources :users, only: [:show]
 end

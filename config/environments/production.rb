@@ -44,7 +44,11 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
+
+  # Expire session cookies after 7 days, serve https-only in production
+  # config.session_store :cookie_store, expire_after: 7.days, secure: Rails.env.production?
+  config.session_store :cookie_store, secure: Rails.env.production?
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.

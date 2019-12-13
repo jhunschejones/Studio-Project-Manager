@@ -7,8 +7,22 @@
 
 .project-details {
   padding: 12px;
+  h3.users-header {
+    margin-bottom: 8px;
+  }
+}
+
+.create-project {
+  padding: 12px;
 }
 
 .project-form {
   padding: 0px 20px;
+  .files {
+    .delete {
+      vertical-align: middle;
+      margin-top: -3px;
+      margin-left: 2px;
+    }
+  }
 }
