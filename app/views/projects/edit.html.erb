@@ -3,7 +3,7 @@
 
   <h2 class="title is-4">Edit project details</h2>
 
-  <%= form_for(@project, url: project_path(@project), remote: true, data: { controller: 'file-upload',  action: 'beforeunload@window->file-upload#leavingPage turbolinks:before-visit@window->file-upload#leavingPage direct-uploads:start@window->file-upload#startDirectUploads  direct-uploads:end@window->file-upload#endDirectUploads', 'file-upload-uploading': "false"  }) do |f| %>
+  <%= form_for(@project, url: project_path(@project), remote: true) do |f| %>
     <div class="field">
       <%= f.label :title %><br />
       <%= f.text_field :title, class: "input" %>
@@ -14,27 +14,34 @@
       <%= f.text_area :description, class: "textarea" %>
     </div>
 
-    <% if @files.present? %>
-      <div class="field">
-        <ul>
-          <% @files.each do |file| %>
-            <li class="files">
-              <span><%= file.name %></span>
-              <%= link_to(destroy_file_path_path(@project, file.id), method: :delete, data: { confirm: "Are you sure you want to delete '#{file.name}' from this project? This action is permanent." }) do %>
-                <button class="delete is-small"></button>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
+    <div class="actions">
+      <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <h2 class="title is-4">Edit project links<h2>
+  <div class="field">
+    <ul class="links">
+      <%= render(@project.links, locals: { project: @project }) %>
+    </ul>
+  </div>
+
+  <%= form_for(@link, url: project_links_path(@project), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :text %><br />
+      <%= f.text_field :text, class: "input" %>
+    </div>
 
     <div class="field">
-      <%= f.file_field :files, multiple: true, direct_upload: true %>
+      <%= f.label :url %><br />
+      <%= f.text_field :url, class: "input" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Save", class: "button is-info" %>
+      <%= f.submit "Add link", class: "button is-info" %>
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>

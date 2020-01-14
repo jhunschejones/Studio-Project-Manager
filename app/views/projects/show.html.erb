@@ -10,10 +10,10 @@
     <% end %>
   </ul>
   <br/>
-  <h3 class="title is-5 users-header">Files for this project</h3>
+  <h3 class="title is-5 users-header">Links for this project</h3>
   <ul>
-    <% @files.each do |file| %>
-      <li><%= link_to file.name, file.url %></li>
+    <% @project.links.each do |link| %>
+      <li><%= link_to(link.text, link.url, target: "_blank") %></li>
     <% end %>
   </ul>
 

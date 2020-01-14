@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration[6.0]
       t.datetime :scheduled_for, null: false
       t.datetime :completed_on
       t.references :project, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

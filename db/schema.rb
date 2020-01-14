@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_12_042717) do
+ActiveRecord::Schema.define(version: 2020_01_14_025614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,26 +47,28 @@ ActiveRecord::Schema.define(version: 2019_12_12_042717) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
-  create_table "download_links", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "link", null: false
-    t.bigint "track_id"
-    t.bigint "project_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_download_links_on_project_id"
-    t.index ["track_id"], name: "index_download_links_on_track_id"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
     t.datetime "scheduled_for", null: false
     t.datetime "completed_on"
     t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id"], name: "index_events_on_project_id"
+    t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "links", force: :cascade do |t|
+    t.string "text", null: false
+    t.string "url", null: false
+    t.string "link_for_class", null: false
+    t.integer "link_for_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_links_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -152,9 +154,9 @@ ActiveRecord::Schema.define(version: 2019_12_12_042717) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "projects"
   add_foreign_key "comments", "users"
-  add_foreign_key "download_links", "projects"
-  add_foreign_key "download_links", "tracks"
   add_foreign_key "events", "projects"
+  add_foreign_key "events", "users"
+  add_foreign_key "links", "users"
   add_foreign_key "revision_notes", "tracks"
   add_foreign_key "revision_notes", "users"
   add_foreign_key "tracks", "projects"

@@ -1,0 +1,22 @@
+<div class="project-form">
+  <br/>
+
+  <h2 class="title is-4">Edit project link</h2>
+
+  <%= form_for(@link, url: project_link_path(@project, @link), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :text %><br />
+      <%= f.text_field :text, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :url %><br />
+      <%= f.text_field :url, class: "input" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+</div>
