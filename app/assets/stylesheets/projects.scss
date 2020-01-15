@@ -18,10 +18,14 @@
 
 .project-form {
   padding: 0px 20px;
-  .links {
+  .link,
+  .user {
+    span {
+      margin-right: 2px;
+    }
     .delete {
       vertical-align: middle;
-      margin-top: -3px;
+      margin-top: -2px;
     }
   }
 }

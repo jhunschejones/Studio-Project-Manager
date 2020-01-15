@@ -5,17 +5,17 @@
 
   <%= form_for(@project, url: project_path(@project), remote: true) do |f| %>
     <div class="field">
-      <%= f.label :title %><br />
-      <%= f.text_field :title, class: "input" %>
+      <%= f.label "project title" %><br />
+      <%= f.text_field :title, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="field">
-      <%= f.label :description %><br />
-      <%= f.text_area :description, class: "textarea" %>
+      <%= f.label "project description" %><br />
+      <%= f.text_area :description, autocomplete: 'off', class: "textarea" %>
     </div>
 
     <div class="actions">
-      <%= f.submit "Save", class: "button is-info" %>
+      <%= f.submit "Update", class: "button is-info" %>
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
@@ -23,21 +23,21 @@
   <br/>
 
   <h2 class="title is-4">Edit project links<h2>
-  <div class="field">
-    <ul class="links">
-      <%= render(@project.links, locals: { project: @project }) %>
-    </ul>
-  </div>
+  <ul class="links">
+    <%= render(@project.links, locals: { project: @project }) %>
+  </ul>
+
+  <br/>
 
   <%= form_for(@link, url: project_links_path(@project), remote: true) do |f| %>
     <div class="field">
-      <%= f.label :text %><br />
-      <%= f.text_field :text, class: "input" %>
+      <%= f.label "link display text" %><br />
+      <%= f.text_field :text, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="field">
-      <%= f.label :url %><br />
-      <%= f.text_field :url, class: "input" %>
+      <%= f.label "Link url" %><br />
+      <%= f.text_field :url, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="actions">
@@ -45,4 +45,33 @@
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
+
+  <br/>
+
+  <h2 class="title is-4">Edit project users<h2>
+  <ul class="users">
+    <%= render(@project.users, locals: { project: @project }) %>
+  </ul>
+
+  <br/>
+
+  <%= form_for(@user, url: project_add_user_path(@project, @user.id), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label "new user's name" %><br />
+      <%= f.text_field :name, autocomplete: 'off', class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label "new user's email (required)" %><br />
+      <%= f.email_field :email, autocomplete: 'off', class: "input" %>
+    </div>
+
+
+    <div class="actions">
+      <%= f.submit "Add user", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+
+  <br/>
 </div>
