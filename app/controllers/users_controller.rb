@@ -13,16 +13,16 @@ class UsersController < ApplicationController
     @user = User.where(email: user_params[:email]).first || begin
       new_user_name = user_params[:name].strip
       new_user_name = "New User" if new_user_name.empty?
-      User.invite!(email: user_params[:email].strip, name: new_user_name)
+      User.invite!({email: user_params[:email].strip, name: new_user_name}, current_user)
     end
 
-    user_project = UserProject.new(
+    @user_project = UserProject.new(
       project_id: @project.id,
       user_id: @user.id
     )
 
     respond_to do |format|
-      if user_project.save
+      if @user_project.save
         format.js
       else
         format.js
@@ -36,12 +36,16 @@ class UsersController < ApplicationController
       project_id: params[:project_id]
     ).first
 
-    respond_to do |format|
-      if @user_project.destroy
-        format.js
-      else
-        format.js
+    if @user_project.project_role != UserProject::PROJECT_OWNER || current_user.can_manage_owners_on?(@project)
+      respond_to do |format|
+        if @user_project.destroy
+          format.js
+        else
+          format.js
+        end
       end
+    else
+      redirect_to edit_project_path(@project), notice: "You cannot remove a project owner"
     end
   end
 

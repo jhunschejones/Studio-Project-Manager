@@ -3,9 +3,9 @@
 one:
   project: one
   user: one
-  role: MyString
+  project_role: MyString
 
 two:
   project: two
   user: two
-  role: MyString
+  project_role: MyString

@@ -1,12 +1,18 @@
 <li class="user user_<%= user.id %>">
-  <span><%= user.name %></span>
+  <span>
+    <%= user.name %>
+    <% if user.is_owner_on?(@project) %>
+      (owner)
+    <% end %>
+  </span>
   <% if user.id == current_user.id %>
     <%= link_to(user_path(current_user), class: "user-link has-text-grey-light") do %>
       <span class="icon is-small">
         <i class="fas fa-user"></i>
       </span>
     <% end %>
-  <% else %>
+  <% end %>
+  <% if current_user.can_manage_owners_on?(@project) || !user.is_owner_on?(@project) %>
     <%= link_to(project_remove_user_path(@project, user), method: :delete, remote: :true, data: { confirm: "Are you sure you want to remove '#{user.name}' from this project? This action is permanent." }) do %>
       <button class="delete is-small"></button>
     <% end %>

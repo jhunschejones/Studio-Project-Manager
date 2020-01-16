@@ -5,11 +5,27 @@
   <% @projects.each do |project| %>
     <li class="project-title">
       <%= link_to(project.title, project_path(project)) %>
+      <% if current_user.is_owner_on?(project) %>
+        (owner)
+      <% end %>
     </li>
   <% end %>
   </ul>
+
+  <% if current_user.is_site_admin? %>
+    <br/>
+    <h1 class="title is-4">Other projects</h1>
+    <ul>
+    <% (Project.active - @projects).each do |project| %>
+      <li class="project-title">
+        <%= link_to(project.title, project_path(project)) %>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+
   <br/>
-  <% if current_user.is_admin_on_any_project? %>
+  <% if current_user.can_create_projects? %>
     <%= link_to("New project", new_project_path, class: "button is-info") %>
   <% end %>
 </div>

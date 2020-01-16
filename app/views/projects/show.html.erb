@@ -6,7 +6,12 @@
   <h3 class="title is-5 users-header">Users on this project</h3>
   <ul>
     <% @project.users.each do |user| %>
-      <li><%= user.name %></li>
+      <li>
+        <%= user.name %>
+        <% if user.is_owner_on?(@project) %>
+          (owner)
+        <% end %>
+      </li>
     <% end %>
   </ul>
   <br/>
@@ -19,7 +24,4 @@
 
   <br/>
   <%= link_to("Edit project", edit_project_path(@project), class: "button is-info") %>
-  <% if current_user.is_admin_on?(@project) %>
-    <%= link_to("Archive", project_path(@project), class: "button is-danger", data: { confirm: "Are you sure you want to archive this project? This action is permanent." }, method: :delete) %>
-  <% end %>
 </div>

@@ -107,17 +107,20 @@ ActiveRecord::Schema.define(version: 2020_01_15_024831) do
   create_table "user_projects", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
-    t.string "role", default: "user"
+    t.string "project_role", default: "project_user"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id", "user_id"], name: "index_user_projects_on_project_id_and_user_id", unique: true
     t.index ["project_id"], name: "index_user_projects_on_project_id"
     t.index ["user_id"], name: "index_user_projects_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name_ciphertext", null: false
+    t.string "name_bidx", null: false
     t.string "email_ciphertext", null: false
     t.string "email_bidx", null: false
+    t.string "site_role", default: "site_user"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "encrypted_password", default: "", null: false

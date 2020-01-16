@@ -1,10 +1,35 @@
+#
+# USER SITE ROLES / PERMISSIONS:
+# --------------------------------
+# User site roles are used to affect the capabilities a user has
+# for the entire site.
+#
+# Hierarchy of roles and the capabilities they provide (from lowest to
+# highest) goes: USER_PROJECT_ROLES > "site_creator" > "site_admin"
+#
+# "site_creator" can create new projects. This role is intended for
+# studio staff who are responsible for creating and managing new
+# projects, especially those working independently of each-other.
+#
+# "site_admin" provides the highest level of permissions, including
+# accessing, modifying, and archiving projects where a user does not
+# explicitly have a user_project record (otherwise required). This
+# role is intended to be used sparingly for individuals managing the
+# entire site. WARNING: "site_admin" has access to every project in
+# the site
+#
+# IMPORTANT: these user site roles provide additional capabilities
+# beyond project scoped roles and are mainly intended for studio
+# staff. Be careful who they are assigned to to avoid unintended
+# data access.
+#
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :lockable,
          :confirmable, :trackable, reconfirmable: true
 
   encrypts :email, :name
-  blind_index :email
+  blind_index :email, :name
 
   has_many :user_projects, dependent: :destroy
   has_many :projects, through: :user_projects
@@ -13,23 +38,60 @@ class User < ApplicationRecord
   has_many :events, dependent: :destroy
 
   validates :email, uniqueness: true
+  validate :site_role_valid
+
+  SITE_USER = "site_user".freeze
+  SITE_CREATOR = "site_creator".freeze
+  SITE_ADMIN = "site_admin".freeze
+  USER_SITE_ROLES = [SITE_USER, SITE_CREATOR, SITE_ADMIN].freeze
+
+  # --- PERMISSIONS ---
+  def is_site_admin?
+    site_role == SITE_ADMIN
+  end
+
+  def is_site_creator?
+    site_role == SITE_CREATOR
+  end
+
+  def can_create_projects?
+    is_site_admin? || is_site_creator?
+  end
+
+  def can_access?(project)
+    is_site_admin? || UserProject.where(user_id: id, project_id: project.id).exists?
+  end
+
+  def can_archive?(project)
+    is_site_admin? || is_owner_on?(project)
+  end
+
+  def can_manage_owners_on?(project)
+    is_site_admin? || is_owner_on?(project)
+  end
+
+  def is_owner_on?(project)
+    UserProject.where(user_id: id, project_id: project.id, project_role: UserProject::PROJECT_OWNER).exists?
+  end
+
+  # --- Security library overrides ---
 
   # Override default devise method to send emails using active job
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def is_admin_on?(project)
-    UserProject.where(project_id: project.id).first.role == UserProject::ADMIN
-  end
-
-  def is_admin_on_any_project?
-    UserProject.where(user_id: id, role: UserProject::ADMIN).exists?
-  end
-
-  # This will allow enabling the :trackable Devise module without saving user IPs.
+  # This will allow enabling the :trackable Devise module without saving user IPs
   # https://github.com/heartcombo/devise/issues/4849#issuecomment-534733131
   def current_sign_in_ip; end
   def last_sign_in_ip=(_ip); end
   def current_sign_in_ip=(_ip); end
+
+  private
+
+  def site_role_valid
+    unless USER_SITE_ROLES.include?(site_role)
+      errors.add(:site_role, "not included in '#{USER_SITE_ROLES}'")
+    end
+  end
 end
