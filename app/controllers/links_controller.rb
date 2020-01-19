@@ -30,7 +30,7 @@ class LinksController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if @link.destroy
+      if @link && @link.destroy
         format.js
       else
         format.js
@@ -45,6 +45,7 @@ class LinksController < ApplicationController
   end
 
   def set_link
-    @link = Link.where(id: params[:id], user_id: current_user.id).first
+    link = Link.find(params[:id])
+    @link = current_user.can_manage_resource?(link) ? link : nil
   end
 end

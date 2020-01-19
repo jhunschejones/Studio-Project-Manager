@@ -8,7 +8,7 @@
     <% @project.users.each do |user| %>
       <li>
         <%= user.name %>
-        <% if user.is_owner_on?(@project) %>
+        <% if user.is_project_owner?(@project) %>
           (owner)
         <% end %>
       </li>

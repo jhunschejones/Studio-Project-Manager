@@ -75,7 +75,7 @@
 
   <br/>
 
-  <% if current_user.can_archive?(@project) %>
+  <% if current_user.can_archive_project?(@project) %>
     <br/>
     <h2 class="title is-4 has-text-danger">Danger Section<h2>
     <%= link_to("Archive project", project_path(@project), class: "button is-danger", data: { confirm: "Are you sure you want to archive this project? This action is permanent." }, method: :delete) %>

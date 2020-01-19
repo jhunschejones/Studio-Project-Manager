@@ -36,7 +36,7 @@ class UsersController < ApplicationController
       project_id: params[:project_id]
     ).first
 
-    if @user_project.project_role != UserProject::PROJECT_OWNER || current_user.can_manage_owners_on?(@project)
+    if @user_project.project_role != UserProject::PROJECT_OWNER || current_user.can_manage_project_owners?(@project)
       respond_to do |format|
         if @user_project.destroy
           format.js

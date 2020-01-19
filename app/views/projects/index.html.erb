@@ -5,7 +5,7 @@
   <% @projects.each do |project| %>
     <li class="project-title">
       <%= link_to(project.title, project_path(project)) %>
-      <% if current_user.is_owner_on?(project) %>
+      <% if current_user.is_project_owner?(project) %>
         (owner)
       <% end %>
     </li>

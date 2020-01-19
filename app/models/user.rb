@@ -1,6 +1,6 @@
 #
-# USER SITE ROLES / PERMISSIONS:
-# --------------------------------
+# USER SITE ROLES & PERMISSIONS:
+# ------------------------------
 # User site roles are used to affect the capabilities a user has
 # for the entire site.
 #
@@ -54,27 +54,31 @@ class User < ApplicationRecord
     site_role == SITE_CREATOR
   end
 
+  def can_manage_resource?(resource)
+    is_site_admin? || (resource.user_id && resource.user_id == id)
+  end
+
   def can_create_projects?
     is_site_admin? || is_site_creator?
   end
 
-  def can_access?(project)
+  def can_access_project?(project)
     is_site_admin? || UserProject.where(user_id: id, project_id: project.id).exists?
   end
 
-  def can_archive?(project)
-    is_site_admin? || is_owner_on?(project)
+  def can_archive_project?(project)
+    is_site_admin? || is_project_owner?(project)
   end
 
-  def can_manage_owners_on?(project)
-    is_site_admin? || is_owner_on?(project)
+  def can_manage_project_owners?(project)
+    is_site_admin? || is_project_owner?(project)
   end
 
-  def is_owner_on?(project)
+  def is_project_owner?(project)
     UserProject.where(user_id: id, project_id: project.id, project_role: UserProject::PROJECT_OWNER).exists?
   end
 
-  # --- Security library overrides ---
+  # --- SECURITY LIBRARY OVERRIDES ---
 
   # Override default devise method to send emails using active job
   def send_devise_notification(notification, *args)

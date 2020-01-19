@@ -1,2 +1,6 @@
+<% if @link && @link.errors.empty? %>
 var link = document.querySelector(".link_<%= @link.id %>");
 link.parentNode.removeChild(link);
+<% else %>
+alert("You cannot destroy that link.");
+<% end %>

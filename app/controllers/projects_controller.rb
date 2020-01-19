@@ -37,7 +37,7 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if current_user.can_archive?(@project)
+    if current_user.can_archive_project?(@project)
       @project.archive!
       redirect_to projects_path
     else
