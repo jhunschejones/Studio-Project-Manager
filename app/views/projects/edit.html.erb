@@ -5,12 +5,12 @@
 
   <%= form_for(@project, url: project_path(@project), remote: true) do |f| %>
     <div class="field">
-      <%= f.label "project title" %><br />
+      <%= f.label :title, "Project title" %><br />
       <%= f.text_field :title, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="field">
-      <%= f.label "project description" %><br />
+      <%= f.label :description, "Project description" %><br />
       <%= f.text_area :description, autocomplete: 'off', class: "textarea" %>
     </div>
 
@@ -22,7 +22,7 @@
 
   <br/>
 
-  <h2 class="title is-4">Edit project links<h2>
+  <h2 id="links" class="title is-4">Edit project links<h2>
   <ul class="links">
     <%= render(@project.links, locals: { project: @project }) %>
   </ul>
@@ -31,12 +31,12 @@
 
   <%= form_for(@link, url: project_links_path(@project), remote: true) do |f| %>
     <div class="field">
-      <%= f.label "link display text" %><br />
+      <%= f.label :text, "Link display text" %><br />
       <%= f.text_field :text, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="field">
-      <%= f.label "Link url" %><br />
+      <%= f.label :url, "Link url" %><br />
       <%= f.text_field :url, autocomplete: 'off', class: "input" %>
     </div>
 
@@ -48,7 +48,7 @@
 
   <br/>
 
-  <h2 class="title is-4">Edit project users<h2>
+  <h2 id="users" class="title is-4">Edit project members<h2>
   <ul class="users">
     <%= render(@project.users, locals: { project: @project }) %>
   </ul>
@@ -57,18 +57,46 @@
 
   <%= form_for(@user, url: project_add_user_path(@project, @user.id), remote: true) do |f| %>
     <div class="field">
-      <%= f.label "new user's name" %><br />
+      <%= f.label :name, "New user's name" %><br />
       <%= f.text_field :name, autocomplete: 'off', class: "input" %>
     </div>
 
     <div class="field">
-      <%= f.label "new user's email (required)" %><br />
+      <%= f.label :email, "New user's email (required)" %><br />
       <%= f.email_field :email, autocomplete: 'off', class: "input" %>
     </div>
 
 
     <div class="actions">
       <%= f.submit "Add user", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <h2 id="tracks" class="title is-4">Edit project tracks<h2>
+  <ul class="tracks">
+    <%= render(@project.tracks.ordered, locals: { project: @project }) %>
+  </ul>
+
+  <br/>
+
+  <%= form_for(@track, url: project_tracks_path(@project), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :title, "Track title" %><br />
+      <%= f.text_field :title, autocomplete: 'off', class: "input" %>
+    </div>
+
+    <div class="field track_order">
+      <%= f.label :order, "Track order" %>
+      <div class="select">
+        <%= f.select :order, 0..20 %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add track", class: "button is-info" %>
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>

@@ -45,7 +45,7 @@ class UsersController < ApplicationController
         end
       end
     else
-      redirect_to edit_project_path(@project), notice: "You cannot remove a project owner"
+      redirect_to edit_project_path(@project, anchor: "users"), notice: "You cannot remove a project owner"
     end
   end
 

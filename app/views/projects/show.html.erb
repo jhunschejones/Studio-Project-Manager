@@ -3,7 +3,7 @@
   <h1 class="title is-4 project-title"><%= @project.title %></h1>
   <p class="project-description"><%= @project.description %></p>
   <br/>
-  <h3 class="title is-5 users-header">Users on this project</h3>
+  <h3 class="title is-5 users-header">Project members:</h3>
   <ul>
     <% @project.users.each do |user| %>
       <li>
@@ -14,11 +14,35 @@
       </li>
     <% end %>
   </ul>
+
   <br/>
-  <h3 class="title is-5 users-header">Links for this project</h3>
+
+  <h3 class="title is-5 users-header">Links:</h3>
   <ul>
     <% @project.links.each do |link| %>
-      <li><%= link_to(link.text, link.url, target: "_blank") %></li>
+      <li>
+        <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
+          <span class="icon is-small external-link-icon">
+            <i class="fas fa-external-link-alt"></i>
+          </span>
+          <span><%= link.text %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+
+  <br/>
+
+  <h3 class="title is-5 users-header">Tracks:</h3>
+  <ul>
+    <% @project.tracks.ordered.each do |track| %>
+      <li class="track">
+        <span class="track-order has-text-grey-light"><%= sprintf('%02d', track.order) %>: </span>
+        <span><%= track.title %></span>
+        <% if track.is_completed? %>
+          <span class="has-text-grey-light">(completed)</span>
+        <% end %>
+      </li>
     <% end %>
   </ul>
 

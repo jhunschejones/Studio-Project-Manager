@@ -25,7 +25,7 @@ class LinksController < ApplicationController
 
   def update
     @link.update(text: link_params[:text], url: link_params[:url])
-    redirect_to edit_project_path(@project)
+    redirect_to edit_project_path(@project, anchor: "links")
   end
 
   def destroy

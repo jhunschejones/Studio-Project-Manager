@@ -1,13 +1,16 @@
 <li class="link link_<%= link.id %>">
-  <span><%= link_to(link.text, link.url, target: "_blank") %></span>
-  <% if current_user.can_manage_resource?(link) %>
-    <%= link_to(edit_project_link_path(@project, link)) do %>
-      <span class="edit icon has-text-grey-light">
-        <i class="fas fa-pen"></i>
+  <span>
+    <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
+      <span class="icon is-small external-link-icon">
+        <i class="fas fa-external-link-alt"></i>
       </span>
+      <span><%= link.text %></span>
     <% end %>
-    <%= link_to(project_link_path(@project, link), method: :delete, remote: :true, data: { confirm: "Are you sure you want to delete the '#{link.text}' link? This action is permanent." }) do %>
-      <button class="delete is-small"></button>
-    <% end %>
+  </strong>
+  <% if current_user.can_manage_resource?(link) %>
+    <strong class="resource-action-divider has-text-link">|</strong>
+    <%= link_to("Edit", edit_project_link_path(@project, link), class: "has-text-link") %>
+    <strong class="resource-action-divider has-text-link">|</strong>
+    <%= link_to("Delete", project_link_path(@project, link), method: :delete, remote: :true, class: "has-text-link", data: { confirm: "Are you sure you want to delete the '#{link.text}' link? This action is permanent." }) %>
   <% end %>
 </li>

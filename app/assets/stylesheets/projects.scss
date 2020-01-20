@@ -16,16 +16,56 @@
   padding: 12px;
 }
 
+.track {
+  .track-order {
+    display: inline-block;
+    width: 24px;
+    margin-right: 1px;
+    text-align: right;
+  }
+}
+
 .project-form {
   padding: 0px 20px;
-  .link,
-  .user {
-    span {
+
+  .resource-action-divider {
+    margin: 0px 4px;
+    user-select: none;
+  }
+
+  .link {
+    .external-link-icon {
       margin-right: 2px;
     }
-    .delete {
-      vertical-align: middle;
-      margin-top: -2px;
+  }
+  .user {
+    .user-link {
+      margin-left: 2px;
+    }
+  }
+  .field {
+    &.track_is_completed {
+      display: flex;
+      align-items: center;
+
+      input[name="track[is_completed]"] {
+        transform: scale(1.25);
+        margin: 1px 0px 0px 8px;
+      }
+      label[for="track_is_completed"] {
+        user-select: none;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    &.track_order {
+      display: flex;
+      align-items: center;
+
+      label[for="track_order"] {
+        margin-right: 8px;
+      }
     }
   }
 }

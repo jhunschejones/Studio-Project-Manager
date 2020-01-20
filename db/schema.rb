@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 2020_01_15_024831) do
   create_table "tracks", force: :cascade do |t|
     t.string "title", null: false
     t.boolean "is_completed", default: false
+    t.integer "order", default: 0
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

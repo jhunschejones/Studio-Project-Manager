@@ -16,7 +16,7 @@
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
+      <%= link_to "Back", edit_project_path(@project, anchor: "links"), class: "button" %>
     </div>
   <% end %>
 </div>

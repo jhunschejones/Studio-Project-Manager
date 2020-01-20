@@ -1,0 +1,31 @@
+<div class="project-form">
+  <br/>
+
+  <h2 class="title is-4">Edit project track</h2>
+
+  <%= form_for(@track, url: project_track_path(@project, @track), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :title, "Track title:" %><br />
+      <%= f.text_field :title, class: "input" %>
+    </div>
+
+    <div class="field track_is_completed">
+      <%= f.label :is_completed, "Track has been completed:", class: "checkbox" %>
+      <%= f.check_box :is_completed %>
+    </div>
+
+    <div class="field track_order">
+      <%= f.label :order, "Track order:" %>
+      <div class="select">
+        <%= f.select :order, 0..20 %>
+      </div>
+    </div>
+
+    <br/>
+
+    <div class="actions">
+      <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", edit_project_path(@project, anchor: "tracks"), class: "button" %>
+    </div>
+  <% end %>
+</div>
