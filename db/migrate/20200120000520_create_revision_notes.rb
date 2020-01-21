@@ -4,8 +4,7 @@ class CreateRevisionNotes < ActiveRecord::Migration[6.0]
       t.text :body
       t.boolean :is_user_editable
       t.boolean :is_completed
-      t.string :track_version
-      t.references :track, null: false, foreign_key: {on_delete: :cascade}
+      t.references :track_version, null: false, foreign_key: {on_delete: :cascade}
       t.references :user, null: false, foreign_key: {on_delete: :cascade}
 
       t.timestamps

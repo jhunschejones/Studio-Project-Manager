@@ -1,0 +1,39 @@
+<div class="track-details">
+  <br/>
+  <h1 class="title is-4 track-title"><%= @track.title %></h1>
+  <p>Track Order: <%= @track.order %></p>
+  <p>Track versions: <%= @track.track_versions.map { |v| v.name }.join(", ") %></p>
+
+  <br/>
+
+  <h3 class="title is-5 track-section-header">Links:</h3>
+  <ul>
+    <% @track.links.each do |link| %>
+      <li>
+        <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
+          <span class="icon is-small external-link-icon">
+            <i class="fas fa-external-link-alt"></i>
+          </span>
+          <span><%= link.text %></span>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+  <br/>
+
+  <h3 class="title is-5 track-section-header">Revision notes:</h3>
+  <ul>
+    <% @track.track_versions.each do |version| %>
+      <% version.revision_notes.each do |note| %>
+        <li>
+          <p>Track version: <%= version.name %></p>
+          <p>Note: <%= note.body %></p>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+
+  <br/>
+  <%= link_to("Edit track", edit_project_track_path(@project, @track), class: "button is-info") %>
+  <%= link_to("Back to project", project_path(@project), class: "button") %>
+</div>

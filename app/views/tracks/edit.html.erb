@@ -1,7 +1,7 @@
 <div class="project-form">
   <br/>
 
-  <h2 class="title is-4">Edit project track</h2>
+  <h2 class="title is-4">Edit track details</h2>
 
   <%= form_for(@track, url: project_track_path(@project, @track), remote: true) do |f| %>
     <div class="field">
@@ -25,7 +25,8 @@
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Back", edit_project_path(@project, anchor: "tracks"), class: "button" %>
+      <%= link_to "Track Details", project_track_path(@project, @track), class: "button" %>
+      <%= link_to "Edit project", edit_project_path(@project, anchor: "tracks"), class: "button" %>
     </div>
   <% end %>
 </div>

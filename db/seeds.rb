@@ -20,6 +20,9 @@ if Project.count == 0
   user.save!
 
   Link.create(text: "An Important Linked Resource", url: "https://tinyurl.com/umqwsr9", link_for_class: "Project", link_for_id: project.id, user_id: user.id)
-  Track.create(title: "Song One", project_id: project.id, order: 1)
+  track_one = Track.create(title: "Song One", project_id: project.id, order: 1)
   Track.create(title: "Song Two", project_id: project.id, order: 2)
+
+  version_one = TrackVersion.create(track_id: track_one.id, name: "Mix 01A")
+  RevisionNote.create(track_version_id: version_one.id, body: "Snare needs to be more punchy", user_id: user.id)
 end

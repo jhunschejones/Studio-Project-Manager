@@ -1,6 +1,9 @@
 class TracksController < ApplicationController
   before_action :set_project_or_redirect
-  before_action :set_track, only: [:edit, :update, :destroy]
+  before_action :set_track, only: [:show, :edit, :update, :destroy]
+
+  def show
+  end
 
   def edit
   end
@@ -43,10 +46,10 @@ class TracksController < ApplicationController
   private
 
   def set_track
-    @track = Track.find(params[:id])
+    @track = Track.includes(:track_versions).find(params[:id])
   end
 
   def track_params
-    params.require(:track).permit(:title, :is_completed, :order)
+    params.require(:track).permit(:title, :is_completed, :order, versions: [])
   end
 end

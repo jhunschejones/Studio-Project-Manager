@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_15_024831) do
+ActiveRecord::Schema.define(version: 2020_01_20_000520) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,19 +86,27 @@ ActiveRecord::Schema.define(version: 2020_01_15_024831) do
     t.text "body"
     t.boolean "is_user_editable"
     t.boolean "is_completed"
-    t.string "track_version"
-    t.bigint "track_id", null: false
+    t.bigint "track_version_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["track_id"], name: "index_revision_notes_on_track_id"
+    t.index ["track_version_id"], name: "index_revision_notes_on_track_version_id"
     t.index ["user_id"], name: "index_revision_notes_on_user_id"
+  end
+
+  create_table "track_versions", force: :cascade do |t|
+    t.string "name"
+    t.bigint "track_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["track_id"], name: "index_track_versions_on_track_id"
   end
 
   create_table "tracks", force: :cascade do |t|
     t.string "title", null: false
     t.boolean "is_completed", default: false
     t.integer "order", default: 0
+    t.string "versions", default: [], array: true
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -164,8 +172,9 @@ ActiveRecord::Schema.define(version: 2020_01_15_024831) do
   add_foreign_key "events", "projects", on_delete: :cascade
   add_foreign_key "events", "users", on_delete: :cascade
   add_foreign_key "links", "users", on_delete: :cascade
-  add_foreign_key "revision_notes", "tracks", on_delete: :cascade
+  add_foreign_key "revision_notes", "track_versions", on_delete: :cascade
   add_foreign_key "revision_notes", "users", on_delete: :cascade
+  add_foreign_key "track_versions", "tracks", on_delete: :cascade
   add_foreign_key "tracks", "projects", on_delete: :cascade
   add_foreign_key "user_projects", "projects", on_delete: :cascade
   add_foreign_key "user_projects", "users", on_delete: :cascade
