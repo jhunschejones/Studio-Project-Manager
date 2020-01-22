@@ -1,0 +1,6 @@
+<% if @track_version && @track_version.errors.empty? %>
+var track_version = document.querySelector(".track_version_<%= @track_version.id %>");
+track_version.parentNode.removeChild(track_version);
+<% else %>
+alert("You cannot destroy that track version.");
+<% end %>

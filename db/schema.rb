@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_000520) do
+ActiveRecord::Schema.define(version: 2020_01_21_022115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,17 +36,6 @@ ActiveRecord::Schema.define(version: 2020_01_20_000520) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "comments", force: :cascade do |t|
-    t.string "title", null: false
-    t.text "body", null: false
-    t.bigint "project_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["project_id"], name: "index_comments_on_project_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
-  end
-
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -63,12 +52,24 @@ ActiveRecord::Schema.define(version: 2020_01_20_000520) do
   create_table "links", force: :cascade do |t|
     t.string "text", null: false
     t.string "url", null: false
-    t.string "link_for_class", null: false
-    t.integer "link_for_id", null: false
+    t.string "linkable_type"
+    t.bigint "linkable_id"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["linkable_type", "linkable_id"], name: "index_links_on_linkable_type_and_linkable_id"
     t.index ["user_id"], name: "index_links_on_user_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "body"
+    t.string "notable_type"
+    t.bigint "notable_id"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable_type_and_notable_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -82,20 +83,9 @@ ActiveRecord::Schema.define(version: 2020_01_20_000520) do
     t.index ["title"], name: "index_projects_on_title", where: "(is_archived = false)"
   end
 
-  create_table "revision_notes", force: :cascade do |t|
-    t.text "body"
-    t.boolean "is_user_editable"
-    t.boolean "is_completed"
-    t.bigint "track_version_id", null: false
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["track_version_id"], name: "index_revision_notes_on_track_version_id"
-    t.index ["user_id"], name: "index_revision_notes_on_user_id"
-  end
-
   create_table "track_versions", force: :cascade do |t|
     t.string "name"
+    t.integer "order", default: 0
     t.bigint "track_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -106,7 +96,6 @@ ActiveRecord::Schema.define(version: 2020_01_20_000520) do
     t.string "title", null: false
     t.boolean "is_completed", default: false
     t.integer "order", default: 0
-    t.string "versions", default: [], array: true
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -167,13 +156,10 @@ ActiveRecord::Schema.define(version: 2020_01_20_000520) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "comments", "projects", on_delete: :cascade
-  add_foreign_key "comments", "users", on_delete: :cascade
   add_foreign_key "events", "projects", on_delete: :cascade
   add_foreign_key "events", "users", on_delete: :cascade
   add_foreign_key "links", "users", on_delete: :cascade
-  add_foreign_key "revision_notes", "track_versions", on_delete: :cascade
-  add_foreign_key "revision_notes", "users", on_delete: :cascade
+  add_foreign_key "notes", "users", on_delete: :cascade
   add_foreign_key "track_versions", "tracks", on_delete: :cascade
   add_foreign_key "tracks", "projects", on_delete: :cascade
   add_foreign_key "user_projects", "projects", on_delete: :cascade

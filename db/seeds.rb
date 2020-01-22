@@ -19,10 +19,19 @@ if Project.count == 0
   user.projects << project
   user.save!
 
-  Link.create(text: "An Important Linked Resource", url: "https://tinyurl.com/umqwsr9", link_for_class: "Project", link_for_id: project.id, user_id: user.id)
-  track_one = Track.create(title: "Song One", project_id: project.id, order: 1)
-  Track.create(title: "Song Two", project_id: project.id, order: 2)
+  link = Link.new(text: "An Important Linked Resource", url: "https://tinyurl.com/umqwsr9", user_id: user.id)
+  project.links << link
+  link.save!
 
-  version_one = TrackVersion.create(track_id: track_one.id, name: "Mix 01A")
-  RevisionNote.create(track_version_id: version_one.id, body: "Snare needs to be more punchy", user_id: user.id)
+  track_one = Track.create(title: "Song One", project_id: project.id, order: 1)
+  version_one = TrackVersion.create(track_id: track_one.id, name: "Mix 01A", order: 1)
+  track_link = Link.new(text: "An Important Linked Resource", url: "https://tinyurl.com/umqwsr9", user_id: user.id)
+  track_note = Note.new(body: "Snare needs to be more punchy", user_id: user.id)
+  version_one.links << track_link
+  version_one.notes << track_note
+  version_one.save!
+
+  Track.create(title: "Song Two", project_id: project.id, order: 2)
+  TrackVersion.create(track_id: track_one.id, name: "Mix 01B", order: 2)
+  TrackVersion.create(track_id: track_one.id, name: "Mix 01C", order: 3)
 end

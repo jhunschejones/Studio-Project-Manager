@@ -1,35 +1,26 @@
 <div class="track-details">
   <br/>
   <h1 class="title is-4 track-title"><%= @track.title %></h1>
-  <p>Track Order: <%= @track.order %></p>
-  <p>Track versions: <%= @track.track_versions.map { |v| v.name }.join(", ") %></p>
+  <p>Track order: <%= @track.order %></p>
+  <% if @track.is_completed? %>
+    <p class="has-text-grey-light">(completed)</p>
+  <% end %>
 
   <br/>
 
-  <h3 class="title is-5 track-section-header">Links:</h3>
+  <h3 class="title is-5 track-section-header">Track versions:</h3>
   <ul>
-    <% @track.links.each do |link| %>
-      <li>
-        <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
-          <span class="icon is-small external-link-icon">
-            <i class="fas fa-external-link-alt"></i>
-          </span>
-          <span><%= link.text %></span>
+    <% @track.track_versions.ordered.each do |version| %>
+      <li class="track-version">
+        <%= link_to(project_track_track_version_path(@project, @track, version), target: "_blank", class: "has-text-link") do %>
+          <span class="resource-order has-text-grey-light"><%= sprintf('%02d', version.order) %>&colon;</span>
+          <span><%= version.name %></span>
+          &lbrack;
+          <span class="has-text-grey-light"><%= pluralize(version.links.size, "link") %>&comma;</span>
+          <span class="has-text-grey-light"><%= pluralize(version.notes.size, "revision note") %></span>
+          &rbrack;
         <% end %>
       </li>
-    <% end %>
-  </ul>
-  <br/>
-
-  <h3 class="title is-5 track-section-header">Revision notes:</h3>
-  <ul>
-    <% @track.track_versions.each do |version| %>
-      <% version.revision_notes.each do |note| %>
-        <li>
-          <p>Track version: <%= version.name %></p>
-          <p>Note: <%= note.body %></p>
-        </li>
-      <% end %>
     <% end %>
   </ul>
 

@@ -1,0 +1,6 @@
+var trackVersionsList = document.querySelector(".track_versions");
+while (trackVersionsList.firstChild) {
+  trackVersionsList.removeChild(trackVersionsList.firstChild);
+}
+document.querySelector(".track_versions").insertAdjacentHTML("beforeend", "<%= escape_javascript render(@track.track_versions.ordered, locals: { project: @project, track: @track }) %>");
+document.getElementsByName("track_version[name]")[0].value = "";

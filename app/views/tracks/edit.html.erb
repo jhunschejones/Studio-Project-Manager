@@ -21,12 +21,41 @@
       </div>
     </div>
 
-    <br/>
-
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Track Details", project_track_path(@project, @track), class: "button" %>
+      <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
       <%= link_to "Edit project", edit_project_path(@project, anchor: "tracks"), class: "button" %>
     </div>
   <% end %>
+
+  <br/>
+
+  <h2 class="title is-4">Edit track versions</h2>
+
+  <ul class="track_versions">
+    <%= render(@track.track_versions.ordered, locals: { project: @project, track: @track }) %>
+  </ul>
+
+  <br/>
+
+  <%= form_for(@track_version, url: project_track_track_versions_path(@project, @track), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :name, "Track version name:" %><br />
+      <%= f.text_field :name, class: "input" %>
+    </div>
+
+    <div class="field track_order">
+      <%= f.label :order, "Track version order:" %>
+      <div class="select">
+        <%= f.select :order, 0..20 %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add track version", class: "button is-info" %>
+      <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
+      <%= link_to "Edit project", edit_project_path(@project, anchor: "tracks"), class: "button" %>
+    </div>
+  <% end %>
+  <br/>
 </div>

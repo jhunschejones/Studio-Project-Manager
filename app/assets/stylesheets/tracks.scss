@@ -1,6 +1,8 @@
-.track-details {
+.track-details,
+.track-version-details {
   padding: 12px;
-  h3.track-section-header{
+  h3.track-section-header,
+  h3.trac-version-section-header {
     margin-bottom: 8px;
   }
 }

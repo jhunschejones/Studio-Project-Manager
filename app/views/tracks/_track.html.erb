@@ -1,5 +1,5 @@
 <li class="track track_<%= track.id %> track_order_<%= track.order %>">
-  <span class="track-order has-text-grey-light"><%= sprintf('%02d', track.order) %>: </span>
+  <span class="resource-order has-text-grey-light"><%= sprintf('%02d', track.order) %>&colon;</span>
   <span class="resource-title"><%= track.title %></span>
   <% if track.is_completed? %>
     <span class="has-text-grey-light">(completed)</span>

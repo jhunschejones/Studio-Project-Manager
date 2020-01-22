@@ -9,13 +9,12 @@ class LinksController < ApplicationController
     @link = Link.new(
       text: link_params[:text],
       url: link_params[:url],
-      link_for_class: "Project",
-      link_for_id: @project.id,
       user_id: current_user.id
     )
+    @project.links << @link
 
     respond_to do |format|
-      if @link.save
+      if @project.save
         format.js
       else
         format.js

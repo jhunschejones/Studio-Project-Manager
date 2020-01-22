@@ -37,7 +37,7 @@
   <ul>
     <% @project.tracks.ordered.each do |track| %>
       <li class="track">
-        <span class="track-order has-text-grey-light"><%= sprintf('%02d', track.order) %>: </span>
+        <span class="resource-order has-text-grey-light"><%= sprintf('%02d', track.order) %>&colon;</span>
         <%= link_to(project_track_path(@project, track), class: "has-text-link") do %>
           <span><%= track.title %></span>
           <% if track.is_completed? %>

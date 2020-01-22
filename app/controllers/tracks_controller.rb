@@ -6,6 +6,7 @@ class TracksController < ApplicationController
   end
 
   def edit
+    @track_version = TrackVersion.new
   end
 
   def create
@@ -30,7 +31,7 @@ class TracksController < ApplicationController
       is_completed: track_params[:is_completed],
       order: track_params[:order]
     )
-    redirect_to edit_project_path(@project, anchor: "tracks")
+    redirect_to project_track_path(@project, @track)
   end
 
   def destroy
@@ -46,10 +47,10 @@ class TracksController < ApplicationController
   private
 
   def set_track
-    @track = Track.includes(:track_versions).find(params[:id])
+    @track = Track.eager_load(track_versions: [:links, :notes]).find(params[:id])
   end
 
   def track_params
-    params.require(:track).permit(:title, :is_completed, :order, versions: [])
+    params.require(:track).permit(:title, :is_completed, :order)
   end
 end

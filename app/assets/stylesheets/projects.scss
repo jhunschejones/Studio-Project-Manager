@@ -16,8 +16,9 @@
   padding: 12px;
 }
 
-.track {
-  .track-order {
+.track,
+.track-version {
+  .resource-order {
     display: inline-block;
     width: 24px;
     margin-right: 1px;
@@ -59,11 +60,13 @@
         }
       }
     }
-    &.track_order {
+    &.track_order,
+    &.track_version_order {
       display: flex;
       align-items: center;
 
-      label[for="track_order"] {
+      label[for="track_order"],
+      label[for="track_version_order"] {
         margin-right: 8px;
       }
     }
