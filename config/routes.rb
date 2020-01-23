@@ -9,9 +9,11 @@ Rails.application.routes.draw do
 
   resources :projects, except: [:delete] do
     resources :links, only: [:edit, :create, :update, :destroy]
+    resources :comments, only: [:edit, :update, :destroy]
     resources :tracks, only: [:show, :edit, :create, :update, :destroy] do
       resources :track_versions, only: [:show, :edit, :create, :update, :destroy] do
-        resources :links, only: [:edit, :create, :update, :destroy]
+        resources :links, only: [:create]
+        resources :comments, only: [:new, :create]
       end
     end
     post '/users', to: 'users#add_to_project', as: :add_user

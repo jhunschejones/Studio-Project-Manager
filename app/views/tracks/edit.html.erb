@@ -9,6 +9,11 @@
       <%= f.text_field :title, class: "input" %>
     </div>
 
+    <div class="field">
+      <%= f.label :description, "Track description:" %><br />
+      <%= f.text_area :description, class: "textarea" %>
+    </div>
+
     <div class="field track_is_completed">
       <%= f.label :is_completed, "Track has been completed:", class: "checkbox" %>
       <%= f.check_box :is_completed %>
@@ -40,8 +45,8 @@
 
   <%= form_for(@track_version, url: project_track_track_versions_path(@project, @track), remote: true) do |f| %>
     <div class="field">
-      <%= f.label :name, "Track version name:" %><br />
-      <%= f.text_field :name, class: "input" %>
+      <%= f.label :title, "Track version title:" %><br />
+      <%= f.text_field :title, class: "input" %>
     </div>
 
     <div class="field track_order">

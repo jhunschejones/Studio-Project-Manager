@@ -5,7 +5,7 @@ class Project < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
-  has_many :notes, as: :notable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   before_destroy :remove_links, prepend: true
 
   scope :active, -> { where(is_archived: false) }

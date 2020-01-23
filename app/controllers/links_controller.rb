@@ -11,10 +11,18 @@ class LinksController < ApplicationController
       url: link_params[:url],
       user_id: current_user.id
     )
-    @project.links << @link
+
+    if params[:track_version_id]
+      @track_version = TrackVersion.find(params[:track_version_id])
+      resource = @track_version
+    else
+      resource = @project
+    end
+
+    resource.links << @link
 
     respond_to do |format|
-      if @project.save
+      if resource.save
         format.js
       else
         format.js
@@ -24,7 +32,8 @@ class LinksController < ApplicationController
 
   def update
     @link.update(text: link_params[:text], url: link_params[:url])
-    redirect_to edit_project_path(@project, anchor: "links")
+
+    redirect_to_resource
   end
 
   def destroy
@@ -46,5 +55,16 @@ class LinksController < ApplicationController
   def set_link
     link = Link.find(params[:id])
     @link = current_user.can_manage_resource?(link) ? link : nil
+  end
+
+  def redirect_to_resource
+    if @link.linkable_type == "TrackVersion"
+      track_version = TrackVersion.eager_load(:track).find(@link.linkable_id)
+      redirect_to project_track_track_version_path(@project, track_version.track, track_version)
+    elsif @link.linkable_type == "Project"
+      redirect_to edit_project_path(@project, anchor: "links")
+    else
+      raise "Linkable resource path not implemented for '#{@link.linkable_type}'"
+    end
   end
 end

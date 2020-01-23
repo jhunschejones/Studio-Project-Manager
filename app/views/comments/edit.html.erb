@@ -1,0 +1,23 @@
+<div class="project-form">
+  <br/>
+
+  <h2 class="title is-4">Edit comment</h2>
+
+  <%= form_for(@comment, url: project_comment_path(@project), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :title, "Comment title:" %><br />
+      <%= f.text_field :title, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :content, "Content:" %><br />
+      <%= f.rich_text_area :content %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", :back, class: "button" %>
+    </div>
+  <% end %>
+  <br/>
+</div>

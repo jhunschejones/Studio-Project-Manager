@@ -5,12 +5,17 @@
 
   <%= form_for(@track_version, url: project_track_track_version_path(@project, @track, @track_version), remote: true) do |f| %>
     <div class="field">
-      <%= f.label :name, "Track version name:" %><br />
-      <%= f.text_field :name, class: "input" %>
+      <%= f.label :title, "Version title:" %><br />
+      <%= f.text_field :title, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description, "Description:" %><br />
+      <%= f.text_area :description, class: "textarea" %>
     </div>
 
     <div class="field track_version_order">
-      <%= f.label :order, "Track version order:" %>
+      <%= f.label :order, "Version order:" %>
       <div class="select">
         <%= f.select :order, 0..20 %>
       </div>
@@ -22,5 +27,31 @@
       <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
     </div>
   <% end %>
+  <br/>
+
+  <h2 id="links" class="title is-4">Edit track version links<h2>
+  <ul class="links">
+    <%= render(@track_version.links, locals: { project: @project }) %>
+  </ul>
+  <br/>
+
+  <%= form_for(@link, url: project_track_track_version_links_path(@project, @track, @track_version), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :text, "Link display text" %><br />
+      <%= f.text_field :text, autocomplete: 'off', class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :url, "Link url" %><br />
+      <%= f.text_field :url, autocomplete: 'off', class: "input" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add link", class: "button is-info" %>
+      <%= link_to "Track version details", project_track_track_version_path(@project, @track, @track_version), class: "button" %>
+      <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
+    </div>
+  <% end %>
+
   <br/>
 </div>

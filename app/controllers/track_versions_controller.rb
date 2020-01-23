@@ -7,11 +7,13 @@ class TrackVersionsController < ApplicationController
   end
 
   def edit
+    @link = Link.new
   end
 
   def create
     @track_version = TrackVersion.new(
-      name: track_versions_params[:name],
+      title: track_versions_params[:title],
+      description: track_versions_params[:description],
       order: track_versions_params[:order],
       track_id: @track.id,
     )
@@ -27,7 +29,8 @@ class TrackVersionsController < ApplicationController
 
   def update
     @track_version.update(
-      name: track_versions_params[:name],
+      title: track_versions_params[:title],
+      description: track_versions_params[:description],
       order: track_versions_params[:order],
     )
     redirect_to project_track_track_version_path(@project, @track, @track_version)
@@ -46,7 +49,7 @@ class TrackVersionsController < ApplicationController
   private
 
   def track_versions_params
-    params.require(:track_version).permit(:name, :order)
+    params.require(:track_version).permit(:title, :description, :order)
   end
 
   def set_track
@@ -54,6 +57,6 @@ class TrackVersionsController < ApplicationController
   end
 
   def set_track_version
-    @track_version = TrackVersion.find(params[:id])
+    @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:id])
   end
 end

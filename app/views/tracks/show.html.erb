@@ -1,28 +1,38 @@
 <div class="track-details">
   <br/>
   <h1 class="title is-4 track-title"><%= @track.title %></h1>
-  <p>Track order: <%= @track.order %></p>
+  <p class="track-order">Track order: <%= @track.order %></p>
   <% if @track.is_completed? %>
     <p class="has-text-grey-light">(completed)</p>
+  <% end %>
+
+  <% unless @track.description.blank? %>
+    <br/>
+    <h3 class="title is-5 track-section-header">Description:</h3>
+    <p><%= @track.description %></p>
   <% end %>
 
   <br/>
 
   <h3 class="title is-5 track-section-header">Track versions:</h3>
-  <ul>
-    <% @track.track_versions.ordered.each do |version| %>
-      <li class="track-version">
-        <%= link_to(project_track_track_version_path(@project, @track, version), target: "_blank", class: "has-text-link") do %>
-          <span class="resource-order has-text-grey-light"><%= sprintf('%02d', version.order) %>&colon;</span>
-          <span><%= version.name %></span>
-          &lbrack;
-          <span class="has-text-grey-light"><%= pluralize(version.links.size, "link") %>&comma;</span>
-          <span class="has-text-grey-light"><%= pluralize(version.notes.size, "revision note") %></span>
-          &rbrack;
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+  <% if @track.track_versions.size == 0 %>
+    <p>None yet!</p>
+  <% else %>
+    <ul>
+      <% @track.track_versions.ordered.each do |version| %>
+        <li class="track-version">
+          <%= link_to(project_track_track_version_path(@project, @track, version), class: "has-text-link") do %>
+            <span class="resource-order has-text-grey-light"><%= sprintf('%02d', version.order) %>&colon;</span>
+            <span><%= version.title %></span>
+            &lbrack;
+            <span class="has-text-grey-light"><%= pluralize(version.links.size, "link") %>&comma;</span>
+            <span class="has-text-grey-light"><%= pluralize(version.comments.size, "revision note") %></span>
+            &rbrack;
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <br/>
   <%= link_to("Edit track", edit_project_track_path(@project, @track), class: "button is-info") %>

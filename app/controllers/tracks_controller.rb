@@ -12,6 +12,7 @@ class TracksController < ApplicationController
   def create
     @track = Track.new(
       title: track_params[:title],
+      description: track_params[:description],
       order: track_params[:order],
       project_id: @project.id,
     )
@@ -28,6 +29,7 @@ class TracksController < ApplicationController
   def update
     @track.update(
       title: track_params[:title],
+      description: track_params[:description],
       is_completed: track_params[:is_completed],
       order: track_params[:order]
     )
@@ -47,10 +49,10 @@ class TracksController < ApplicationController
   private
 
   def set_track
-    @track = Track.eager_load(track_versions: [:links, :notes]).find(params[:id])
+    @track = Track.includes(track_versions: [:links, :comments]).find(params[:id])
   end
 
   def track_params
-    params.require(:track).permit(:title, :is_completed, :order)
+    params.require(:track).permit(:title, :description, :is_completed, :order)
   end
 end
