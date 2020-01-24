@@ -1,5 +1,4 @@
 <div class="track-version-details">
-  <br/>
   <h1 class="title is-4 track-version-title"><%= @track.title %>: <%= @track_version.title %></h1>
   <ul>
     <% @track.track_versions.ordered.each do |version| %>
@@ -43,15 +42,15 @@
 
   <h3 class="title is-5 track-version-section-header">Comments:</h3>
   <% if @track_version.comments.size == 0 %>
-    <p>None yet!</p>
+    <p>None yet!</p><br/>
   <% else %>
-    <%= render @track_version.comments %>
+    <%= render @track_version.comments.ordered %>
   <% end %>
 
-  <br/>
-
-  <%= link_to("Add comment", new_project_track_track_version_comment_path(@project, @track, @track_version), class: "button is-warning") %>
-  <%= link_to("Edit track version", edit_project_track_track_version_path(@project, @track, @track_version), class: "button is-info") %>
-  <%= link_to("Back to track", project_track_path(@project, @track), class: "button") %>
-  <%= link_to("Back to project", project_path(@project), class: "button") %>
+  <div class="page-action-buttons">
+    <%= link_to("Add comment", new_project_track_track_version_comment_path(@project, @track, @track_version), class: "button is-warning") %>
+    <%= link_to("Edit track version", edit_project_track_track_version_path(@project, @track, @track_version), class: "button is-info") %>
+    <%= link_to("Back to track", project_track_path(@project, @track), class: "button") %>
+    <%= link_to("Back to project", project_path(@project), class: "button") %>
+  </div>
 </div>

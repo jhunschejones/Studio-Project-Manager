@@ -15,3 +15,7 @@
  *= require bulma
  *= require font_awesome5_webfont
  */
+
+.page-action-buttons a {
+  margin-bottom: 8px;
+}

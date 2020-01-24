@@ -7,4 +7,13 @@ trix-toolbar {
 
 .box.comment {
   // change comment card styling here
+  max-width: 800px;
+  border: 1px solid hsl(0, 0%, 88%);
+  .comment-creator {
+    margin-bottom: 0px;
+  }
+  .comment-date {
+    margin-top: -3px;
+    margin-bottom: 15px;
+  }
 }

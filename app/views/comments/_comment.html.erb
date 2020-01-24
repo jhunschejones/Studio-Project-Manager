@@ -2,12 +2,13 @@
   <article class="media">
     <div class="media-content">
       <div class="content">
-        <p>
-          <strong><%= comment.user.name %></strong>&nbsp;-&nbsp;
-          <small><%= comment.created_at.localtime.to_formatted_s(:long_ordinal) %></small>
-          <br />
+        <div class="comment-header">
+          <p class="comment-creator"><strong><%= comment.user.name %></strong></p>
+          <p class="comment-date"><small><%= comment.created_at.localtime.strftime("%b. %_m, %Y, %l:%M%p %Z") %></small></p>
+        </div>
+        <div class="comment-body">
           <%= comment.content %>
-        </p>
+        </div>
       </div>
       <% if comment.user.id == current_user.id %>
         <%# `is-mobile` tells bulma to keep these horizontal on mobile as well as desktop %>

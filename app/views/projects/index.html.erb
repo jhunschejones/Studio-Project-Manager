@@ -1,13 +1,14 @@
 <div class="all-projects">
-  <br/>
   <h1 class="title is-4">My projects</h1>
   <ul>
   <% @projects.each do |project| %>
     <li class="project-title">
-      <%= link_to(project.title, project_path(project)) %>
+      <%= link_to(project.title, project_path(project), class: "has-text-link") %>
       <% if current_user.is_project_owner?(project) %>
         (owner)
       <% end %>
+      <p class="has-text-grey-light"><%= pluralize(project.tracks.size, "track") %></p>
+      <p class="has-text-grey-light"><%= pluralize(project.users.size, "member") %></p>
     </li>
   <% end %>
   </ul>
