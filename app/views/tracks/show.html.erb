@@ -22,11 +22,10 @@
         <li class="track-version">
           <%= link_to(project_track_track_version_path(@project, @track, version), class: "has-text-link") do %>
             <span class="resource-order has-text-grey-light"><%= sprintf('%02d', version.order) %>&colon;</span>
-            <span><%= version.title %></span>
-            &lbrack;
+            <span class="has-text-link"><%= version.title %></span>
+            &rarr;
             <span class="has-text-grey-light"><%= pluralize(version.links.size, "link") %>&comma;</span>
             <span class="has-text-grey-light"><%= pluralize(version.comments.size, "revision note") %></span>
-            &rbrack;
           <% end %>
         </li>
       <% end %>

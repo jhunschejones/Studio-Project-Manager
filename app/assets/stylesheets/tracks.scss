@@ -11,6 +11,32 @@
   h3.track-version-section-header {
     margin-bottom: 8px;
   }
+
+  li.current-track-version {
+    user-select: none;
+  }
+
+  .track-version {
+    display: flex;
+    flex-shrink: 1;
+    a {
+      &:hover {
+        box-shadow: 0.1em 0.1em 0.4em rgba(10, 10, 10, 0.1);
+        border: 1px solid hsl(0, 0%, 94%);
+        padding: 0px 10px 0px 10px;
+        border-radius: 20px;
+        margin: -1px 0px -1px -7px;
+        .resource-order {
+          margin-left: -1px;
+        }
+      }
+    }
+  }
 }
 
-
+.resource-order {
+  display: inline-block;
+  width: 24px;
+  margin-right: 1px;
+  text-align: right;
+}

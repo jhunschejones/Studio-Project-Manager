@@ -1,51 +1,63 @@
 <div class="project-details">
   <h1 class="title is-4 project-title"><%= @project.title %></h1>
   <p class="project-description"><%= @project.description %></p>
-  <br/>
-  <h3 class="title is-5 project-section-header">Project members:</h3>
-  <ul>
-    <% @project.users.each do |user| %>
-      <li>
-        <%= user.name %>
-        <% if user.is_project_owner?(@project) %>
-          (owner)
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
 
-  <br/>
-
-  <h3 class="title is-5 project-section-header">Links:</h3>
-  <ul>
-    <% @project.links.each do |link| %>
-      <li>
-        <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
-          <span class="icon is-small external-link-icon">
-            <i class="fas fa-external-link-alt"></i>
-          </span>
-          <span><%= link.text %></span>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
-
-  <br/>
-
-  <h3 class="title is-5 project-section-header">Tracks:</h3>
-  <ul>
-    <% @project.tracks.ordered.each do |track| %>
-      <li class="track">
-        <span class="resource-order has-text-grey-light"><%= sprintf('%02d', track.order) %>&colon;</span>
-        <%= link_to(project_track_path(@project, track), class: "has-text-link") do %>
-          <span><%= track.title %></span>
-          <% if track.is_completed? %>
-            <span class="has-text-grey-light">(completed)</span>
+  <div class="project-middle-content">
+    <div class="project-tracks">
+      <h3 class="title is-5 project-section-header">Tracks:</h3>
+      <% if @project.tracks.size == 0 %>
+        <p>None yet!</p>
+      <% else %>
+        <ul>
+          <% @project.tracks.ordered.each do |track| %>
+            <li class="project-track">
+              <span class="resource-order has-text-grey-light"><%= sprintf('%02d', track.order) %>&colon;</span>
+              <%= link_to(project_track_path(@project, track), class: "has-text-link") do %>
+                <span><%= track.title %></span>
+                <% if track.is_completed? %>
+                  <span class="has-text-grey-light">(completed)</span>
+                <% end %>
+              <% end %>
+            </li>
           <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="project-links">
+      <h3 class="title is-5 project-section-header">Links:</h3>
+      <% if @project.links.size == 0 %>
+        <p>None yet!</p>
+      <% else %>
+        <ul>
+          <% @project.links.each do |link| %>
+            <li class="project-link">
+              <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
+                <span class="icon is-small external-link-icon">
+                  <i class="fas fa-external-link-alt"></i>
+                </span>
+                <span><%= link.text %></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+
+    <div class="project-members">
+      <h3 class="title is-5 project-section-header">Project members:</h3>
+      <ul>
+        <% @project.users.each do |user| %>
+          <li class="project-member">
+            <%= user.name %>
+            <% if user.is_project_owner?(@project) %>
+              (owner)
+            <% end %>
+          </li>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
+      </ul>
+    </div>
+  </div>
 
   <br/>
   <%= link_to("Edit project", edit_project_path(@project), class: "button is-info") %>

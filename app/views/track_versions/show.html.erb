@@ -3,11 +3,11 @@
   <ul>
     <% @track.track_versions.ordered.each do |version| %>
       <% if version.id == @track_version.id %>
-        <p><%= version.title %></p>
+        <li class="current-track-version"><%= version.title %></li>
       <% else %>
-        <p>
+        <li class="track-version">
           <%= link_to(version.title, project_track_track_version_path(@project, @track, version), class: "has-text-link") %>
-        </p>
+        </li>
       <% end %>
     <% end %>
   </ul>

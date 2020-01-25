@@ -16,6 +16,17 @@
  *= require font_awesome5_webfont
  */
 
-.page-action-buttons a {
-  margin-bottom: 8px;
+.flash {
+  margin: 5px;
+}
+
+.devise-form-container {
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.devise-form {
+  max-width: 600px;
+  width: 100%;
 }
