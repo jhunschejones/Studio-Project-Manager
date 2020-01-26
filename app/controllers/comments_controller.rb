@@ -1,7 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_project_or_redirect
-  before_action :set_track_and_track_version, only: [:new, :create]
-  before_action :set_comment, except: [:new, :create]
+  before_action :set_comment_or_redirect, except: [:new, :create]
+  before_action :set_track, only: [:new, :create]
+  before_action :set_track_version, only: [:new, :create]
 
   def new
     @comment = Comment.new
@@ -20,22 +21,12 @@ class CommentsController < ApplicationController
   end
 
   def update
-    if current_user.can_manage_resource?(@comment)
-      @comment.update!(comment_params)
-    else
-      flash[:notice] = "You cannot modify that comment."
-    end
-
+    @comment.update!(comment_params)
     redirect_to_resource
   end
 
   def destroy
-    if current_user.can_manage_resource?(@comment)
-      @comment.destroy
-    else
-      flash[:notice] = "You cannot destroy that comment."
-    end
-
+    @comment.destroy
     redirect_to_resource
   end
 
@@ -45,6 +36,24 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:title, :content)
   end
 
+  def set_comment_or_redirect
+    @comment = Comment.find(params[:id])
+    unless current_user.can_manage_resource?(@comment)
+      flash[:alert] = "You cannot modify that comment."
+      redirect_to_resource
+    end
+  end
+
+  def set_track
+    raise "Comments not implimented yet for this resource" if !params[:track_id]
+    @track = Track.find(params[:track_id])
+  end
+
+  def set_track_version
+    raise "Comments not implimented yet for this resource" if !params[:track_version_id]
+    @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:track_version_id])
+  end
+
   def redirect_to_resource
     if @comment.commentable_type == "TrackVersion"
       track_version = TrackVersion.eager_load(:track).find(@comment.commentable_id)
@@ -52,14 +61,5 @@ class CommentsController < ApplicationController
     else
       raise "Commentable path not implimented for '#{@comment.commentable_type}'"
     end
-  end
-
-  def set_track_and_track_version
-    @track = Track.find(params[:track_id])
-    @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:track_version_id])
-  end
-
-  def set_comment
-    @comment = Comment.find(params[:id])
   end
 end

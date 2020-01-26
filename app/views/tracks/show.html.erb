@@ -1,3 +1,5 @@
+<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track)) %>
+
 <div class="track-details">
   <h1 class="title is-4 track-title"><%= @track.title %></h1>
   <p class="track-order">Track order: <%= @track.order %></p>

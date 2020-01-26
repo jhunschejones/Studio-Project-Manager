@@ -1,5 +1,48 @@
+<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, page_title: { text: "Edit" })) %>
+
 <div class="project-form">
-  <h2 class="title is-4">Edit project details</h2>
+  <div class="tabs is-toggle project-edit-tabs">
+    <ul>
+      <li>
+        <a href="#details">
+          <span class="icon is-small"><i class="fas fa-edit" aria-hidden="true"></i></span>
+          <span>Details</span>
+        </a>
+      </li>
+      <li>
+        <a href="#tracks">
+          <span class="icon is-small"><i class="fas fa-music" aria-hidden="true"></i></span>
+          <span>Tracks</span>
+        </a>
+      </li>
+      <li>
+        <a href="#links">
+          <span class="icon is-small"><i class="fas fa-link" aria-hidden="true"></i></span>
+          <span>Links</span>
+        </a>
+      </li>
+      <li>
+        <a href="#users">
+          <span class="icon is-small"><i class="far fa-user" aria-hidden="true"></i></span>
+          <span>Members</span>
+        </a>
+      </li>
+      <li>
+        <a href="#events">
+          <span class="icon is-small"><i class="far fa-calendar" aria-hidden="true"></i></span>
+          <span>Events</span>
+        </a>
+      </li>
+      <li>
+        <%= link_to(project_path(@project)) do %>
+          <span class="icon is-small"><i class="fas fa-angle-left" aria-hidden="true"></i></span>
+          <span>Back</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+  <h2 id="details" class="title is-4">Edit project details</h2>
 
   <%= form_for(@project, url: project_path(@project), remote: true) do |f| %>
     <div class="field">
@@ -14,6 +57,34 @@
 
     <div class="actions">
       <%= f.submit "Update", class: "button is-info" %>
+      <%= link_to "Back", project_path(@project), class: "button" %>
+    </div>
+  <% end %>
+
+  <br/>
+
+  <h2 id="tracks" class="title is-4">Edit project tracks<h2>
+  <ul class="tracks">
+    <%= render(@project.tracks.ordered, locals: { project: @project }) %>
+  </ul>
+
+  <br/>
+
+  <%= form_for(@track, url: project_tracks_path(@project), remote: true) do |f| %>
+    <div class="field">
+      <%= f.label :title, "Track title" %><br />
+      <%= f.text_field :title, autocomplete: 'off', class: "input" %>
+    </div>
+
+    <div class="field track_order">
+      <%= f.label :order, "Track order" %>
+      <div class="select">
+        <%= f.select :order, 0..20 %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Add track", class: "button is-info" %>
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
@@ -73,28 +144,38 @@
 
   <br/>
 
-  <h2 id="tracks" class="title is-4">Edit project tracks<h2>
-  <ul class="tracks">
-    <%= render(@project.tracks.ordered, locals: { project: @project }) %>
+  <h2 id="events" class="title is-4">Edit project events<h2>
+  <ul class="events">
+    <%= render(@project.events, locals: { project: @project }) %>
   </ul>
 
   <br/>
 
-  <%= form_for(@track, url: project_tracks_path(@project), remote: true) do |f| %>
+  <%= form_for(@event, url: project_events_path(@project), remote: true) do |f| %>
     <div class="field">
-      <%= f.label :title, "Track title" %><br />
+      <%= f.label :title, "New event title" %><br />
       <%= f.text_field :title, autocomplete: 'off', class: "input" %>
     </div>
 
-    <div class="field track_order">
-      <%= f.label :order, "Track order" %>
-      <div class="select">
-        <%= f.select :order, 0..20 %>
-      </div>
+    <div class="field">
+      <%= f.label :description, "Event description" %><br />
+      <%= f.text_area :description, autocomplete: 'off', class: "textarea" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :start_at, "Event starts at:" %><br />
+      <%= f.datetime_select :start_at, ampm: true, use_short_month: true, order: [:month, :day, :year] %>
+      <small class="has-text-grey-light">(USA Pacific Time)</small>
+    </div>
+
+    <div class="field">
+      <%= f.label :end_at, "Event ends at:" %><br />
+      <%= f.datetime_select :end_at, ampm: true, use_short_month: true, order: [:month, :day, :year] %>
+      <small class="has-text-grey-light">(USA Pacific Time)</small>
     </div>
 
     <div class="actions">
-      <%= f.submit "Add track", class: "button is-info" %>
+      <%= f.submit "Add event", class: "button is-info" %>
       <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>

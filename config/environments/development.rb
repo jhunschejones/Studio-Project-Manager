@@ -79,4 +79,9 @@ Rails.application.configure do
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+
+  # Only affects displayed timezone, times are still stored in the DB as UTC
+  config.time_zone = "Pacific Time (US & Canada)"
+
+  Rails.application.routes.default_url_options[:host] = 'localhost:3000'
 end

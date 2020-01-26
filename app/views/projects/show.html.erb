@@ -1,3 +1,5 @@
+<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project)) %>
+
 <div class="project-details">
   <h1 class="title is-4 project-title"><%= @project.title %></h1>
   <p class="project-description"><%= @project.description %></p>
@@ -53,6 +55,19 @@
             <% if user.is_project_owner?(@project) %>
               (owner)
             <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="project-events">
+      <h3 class="title is-5 project-section-header">Project events:</h3>
+      <ul>
+        <% @project.events.ordered.each do |event| %>
+          <li class="project-event">
+            <p><%= event.title %></p>
+            <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
+            <p class="event-time has-text-grey-light">Ends: <%= event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
           </li>
         <% end %>
       </ul>

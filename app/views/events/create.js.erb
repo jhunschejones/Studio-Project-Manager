@@ -1,0 +1,7 @@
+var events = document.querySelector(".events");
+while (events.firstChild) {
+  events.removeChild(events.firstChild);
+}
+document.querySelector(".events").insertAdjacentHTML("beforeend", "<%= escape_javascript render(@project.events.ordered, locals: { project: @project }) %>");
+document.getElementsByName("event[title]")[0].value = "";
+document.getElementsByName("event[description]")[0].value = "";

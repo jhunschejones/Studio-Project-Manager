@@ -20,6 +20,10 @@
   margin: 5px;
 }
 
+.project-breadcrumbs {
+  padding: 16px 16px 0px 16px;
+}
+
 .devise-form-container {
   padding: 16px;
   display: flex;

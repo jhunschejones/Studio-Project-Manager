@@ -60,8 +60,9 @@ ActiveRecord::Schema.define(version: 2020_01_21_045159) do
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
-    t.datetime "scheduled_for", null: false
-    t.datetime "completed_on"
+    t.string "status"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false

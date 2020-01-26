@@ -3,8 +3,9 @@ class CreateEvents < ActiveRecord::Migration[6.0]
     create_table :events do |t|
       t.string :title, null: false
       t.text :description
-      t.datetime :scheduled_for, null: false
-      t.datetime :completed_on
+      t.string :status
+      t.datetime :start_at
+      t.datetime :end_at
       t.references :project, null: false, foreign_key: {on_delete: :cascade}
       t.references :user, null: false, foreign_key: {on_delete: :cascade}
 

@@ -4,7 +4,7 @@
       <div class="content">
         <div class="comment-header">
           <p class="comment-creator"><strong><%= comment.user.name %></strong></p>
-          <p class="comment-date"><small><%= comment.created_at.localtime.strftime("%b. %_m, %Y, %l:%M%p %Z") %></small></p>
+          <p class="comment-date"><small><%= comment.created_at.localtime.strftime("%b. %-d, %Y, %l:%M%p %Z") %></small></p>
         </div>
         <div class="comment-body">
           <%= comment.content %>

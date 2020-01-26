@@ -29,7 +29,8 @@
 
     .project-links,
     .project-members,
-    .project-tracks {
+    .project-tracks,
+    .project-events {
       border: 1px solid hsl(0, 0%, 88%);
       border-radius: 6px;
       box-shadow: 0.1em 0.1em 0.4em rgba(10, 10, 10, 0.1);
@@ -45,6 +46,9 @@
       &.project-track {
         margin-left: -2px;
       }
+    }
+    .event-time {
+      margin-left: 8px;
     }
   }
 }
@@ -64,6 +68,24 @@
       margin-left: 2px;
     }
   }
+  //
+  // Project edit tabs stick at the top of the page when scrolling
+  .project-edit-tabs {
+    top: 0px;
+    position: sticky;
+    z-index: 100;
+    background-color: white;
+  }
+  // padding for hash routing
+  h2::before {
+    display: block;
+    content: " ";
+    margin-top: -50px;
+    height: 50px;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   .field {
     &.track-is-completed,
     &.track_order,

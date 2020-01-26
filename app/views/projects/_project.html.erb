@@ -1,0 +1,12 @@
+<li>
+  <%= link_to(project_path(project), class: "project") do %>
+    <p class="has-text-link">
+      <%= project.title %>
+      <% if current_user.is_project_owner?(project) %>
+        <span class="has-text-grey-light">(owner)</span>
+      <% end %>
+    </p>
+    <p class="has-text-grey-light"><%= pluralize(project.tracks.size, "track") %></p>
+    <p class="has-text-grey-light"><%= pluralize(project.users.size, "member") %></p>
+  <% end %>
+</li>

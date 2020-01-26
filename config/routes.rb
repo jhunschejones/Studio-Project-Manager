@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   }
 
   resources :projects, except: [:delete] do
+    resources :events, only: [:edit, :create, :update, :destroy]
     resources :links, only: [:edit, :create, :update, :destroy]
     resources :comments, only: [:edit, :update, :destroy]
     resources :tracks, only: [:show, :edit, :create, :update, :destroy] do

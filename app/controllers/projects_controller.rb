@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
     @link = Link.new
     @user = User.new
     @track = Track.new
+    @event = Event.new
   end
 
   def create

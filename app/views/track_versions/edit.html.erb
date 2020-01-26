@@ -1,3 +1,5 @@
+<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track, track_version: @track_version, page_title: { text: "Edit" })) %>
+
 <div class="project-form">
   <h2 class="title is-4">Edit track version</h2>
 

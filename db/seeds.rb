@@ -36,4 +36,6 @@ if Project.count == 0
   Track.create(title: "Song Two", description: filler_description, project_id: project.id, order: 2)
   TrackVersion.create(track_id: track_one.id, title: "Mix 01B", description: filler_description, order: 2)
   TrackVersion.create(track_id: track_one.id, title: "Mix 01C", description: filler_description, order: 3)
+
+  Event.create(title: "Pre-production", user_id: user.id, project_id: project.id)
 end

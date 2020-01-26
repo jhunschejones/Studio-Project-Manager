@@ -133,4 +133,7 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Only affects displayed timezone, times are still stored in the DB as UTC
+  config.time_zone = "Pacific Time (US & Canada)"
 end
