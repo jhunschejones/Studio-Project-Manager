@@ -5,6 +5,14 @@ trix-toolbar {
   }
 }
 
+trix-editor {
+  &#comment_content {
+    min-height: 250px;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+}
+
 .box.comment {
   // change comment card styling here
   max-width: 800px;

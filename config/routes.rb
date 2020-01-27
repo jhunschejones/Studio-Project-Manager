@@ -1,3 +1,7 @@
+if Rails.env.production?
+  Rails.application.routes.default_url_options[:host] = 'studio-project-manager.herokuapp.com'
+end
+
 Rails.application.routes.draw do
   root to: "projects#index"
 

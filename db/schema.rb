@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_045159) do
+ActiveRecord::Schema.define(version: 2020_01_25_215722) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,18 @@ ActiveRecord::Schema.define(version: 2020_01_21_045159) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["linkable_type", "linkable_id"], name: "index_links_on_linkable_type_and_linkable_id"
     t.index ["user_id"], name: "index_links_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.string "action"
+    t.text "description"
+    t.string "notifiable_type"
+    t.bigint "notifiable_id"
+    t.bigint "project_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["project_id"], name: "index_notifications_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|
@@ -173,6 +185,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_045159) do
   add_foreign_key "events", "projects", on_delete: :cascade
   add_foreign_key "events", "users", on_delete: :cascade
   add_foreign_key "links", "users", on_delete: :cascade
+  add_foreign_key "notifications", "projects", on_delete: :cascade
   add_foreign_key "track_versions", "tracks", on_delete: :cascade
   add_foreign_key "tracks", "projects", on_delete: :cascade
   add_foreign_key "user_projects", "projects", on_delete: :cascade

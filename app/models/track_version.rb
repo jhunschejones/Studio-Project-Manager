@@ -2,6 +2,13 @@ class TrackVersion < ApplicationRecord
   belongs_to :track
   has_many :links, as: :linkable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_many :notifications, as: :notifiable, dependent: :destroy
+
+  after_create :notify_project_users
 
   scope :ordered, -> { order(:order) }
+
+  def notify_project_users
+    NotifyOnTrackVersionJob.set(wait: 2.minutes).perform_later(id, "added")
+  end
 end

@@ -26,7 +26,7 @@
 class User < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :lockable,
-         :confirmable, :trackable, reconfirmable: true
+         :confirmable, :async, :trackable, reconfirmable: true
 
   encrypts :email, :name
   blind_index :email, :name

@@ -26,8 +26,10 @@ gem 'bulma-rails'
 gem 'font_awesome5_rails'
 gem 'devise'
 gem 'devise_invitable'
+gem 'devise-async'
 gem 'blind_index'
 gem 'lockbox'
+gem 'sidekiq'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
