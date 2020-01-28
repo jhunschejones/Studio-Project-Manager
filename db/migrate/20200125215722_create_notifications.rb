@@ -3,6 +3,7 @@ class CreateNotifications < ActiveRecord::Migration[6.0]
     create_table :notifications do |t|
       t.string :action
       t.text :description
+      t.boolean :users_notified, default: false
       t.references :notifiable, polymorphic: true
       t.references :project, null: false, foreign_key: {on_delete: :cascade}
 

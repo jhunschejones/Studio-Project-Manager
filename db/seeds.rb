@@ -26,7 +26,9 @@ if Project.count == 0
   link.save!
 
   track_one = Track.create(title: "Song One", description: filler_description, project_id: project.id, order: 1)
-  version_one = TrackVersion.create(track_id: track_one.id, title: "Mix 01A", description: filler_description, order: 1)
+  version_one = TrackVersion.new(track_id: track_one.id, title: "Mix 01A", description: filler_description, order: 1)
+  version_one.skip_notifications = true
+  version_one.save!
   track_link = Link.new(text: "An Important Linked Resource", url: "https://tinyurl.com/umqwsr9", user_id: user.id)
   # track_comment = Comment.new(body: "Snare needs to be more punchy", user_id: user.id)
   version_one.links << track_link
@@ -34,8 +36,23 @@ if Project.count == 0
   version_one.save!
 
   Track.create(title: "Song Two", description: filler_description, project_id: project.id, order: 2)
-  TrackVersion.create(track_id: track_one.id, title: "Mix 01B", description: filler_description, order: 2)
-  TrackVersion.create(track_id: track_one.id, title: "Mix 01C", description: filler_description, order: 3)
+  track_version_2 = TrackVersion.new(track_id: track_one.id, title: "Mix 01B", description: filler_description, order: 2)
+  track_version_2.skip_notifications = true
+  track_version_2.save!
+  track_version_3 = TrackVersion.new(track_id: track_one.id, title: "Mix 01C", description: filler_description, order: 3)
+  track_version_3.skip_notifications = true
+  track_version_3.save!
 
-  Event.create(title: "Pre-production", user_id: user.id, project_id: project.id)
+  event = Event.new(title: "Pre-production", user_id: user.id, project_id: project.id)
+  event.skip_notifications = true
+  event.save!
+
+  notification = Notification.new(
+    project_id: event.project_id,
+    action: "added",
+    description: "The '#{event.title}' event was added by #{user.name}"
+  )
+
+  event.notifications << notification
+  event.save!
 end

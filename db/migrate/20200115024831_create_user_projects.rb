@@ -4,6 +4,7 @@ class CreateUserProjects < ActiveRecord::Migration[6.0]
       t.references :project, null: false, foreign_key: {on_delete: :cascade}
       t.references :user, null: false, foreign_key: {on_delete: :cascade}
       t.string :project_role, default: "project_user"
+      t.boolean :receive_notifications, default: true
 
       t.timestamps
     end

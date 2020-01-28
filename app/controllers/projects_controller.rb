@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   before_action :set_project_or_redirect, except: [:index, :new, :create]
 
   def index
-    @projects = current_user.projects.active.includes(:users, :tracks)
+    @projects = current_user.projects.active.includes(:users, :tracks, :events)
   end
 
   def show

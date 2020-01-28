@@ -47,6 +47,20 @@
     <% end %>
 
     <br/><br/>
+    <h3 class="title is-4">Edit notification preferences</h3>
+    <ul>
+      <% current_user.user_projects.each do |user_project| %>
+        <li>
+          <span>Receive notifications for '<%= user_project.project.title %>'&colon;</span>
+          <%= form_for(user_project, url: project_update_preferences_path(user_project.project, current_user), html: { method: :patch }) do |f| %>
+            <%= f.check_box :receive_notifications, onclick: "this.form.submit()" %>
+          <% end %>
+          <small class="has-text-grey-light">(auto-saved)</small>
+        </li>
+      <% end %>
+    </ul>
+
+    <br/><br/>
     <h3 class="title is-4">Cancel account</h3>
 
     <%= button_to "Cancel account", registration_path(resource_name), data: { confirm: "Are you sure you want to cancel your account? This action is permanent." }, method: :delete, class: "button is-warning" %>

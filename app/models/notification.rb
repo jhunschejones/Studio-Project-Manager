@@ -1,15 +1,14 @@
 class Notification < ApplicationRecord
   belongs_to :project
   belongs_to :notifiable, polymorphic: true
-end
 
-#
-# Hi user,
-#
-# Today there were 3 changes on your project "Album 1":
-# 1. "mix_01" was added to track "Song One"
-# 2. Event "Mixing round 2" was created
-# 3. Comment was added to "rough_mix" of track "Song One"
-#
-# Click here to see the latest changes on your project
-#
+  scope :unsent, -> { where(users_notified: false) }
+  scope :sent, -> { where(users_notified: true) }
+  scope :recent, -> { order(created_at: :desc).limit(RECENT_COUNT) }
+
+  RECENT_COUNT = 5.freeze
+
+  def self.clean_old
+    sent.order(created_at: :desc).offset(RECENT_COUNT).destroy_all
+  end
+end

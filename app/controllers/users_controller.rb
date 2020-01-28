@@ -49,6 +49,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update_preferences
+    @user_project = UserProject.where(
+      user_id: params[:user_id],
+      project_id: params[:project_id]
+    ).first
+
+    @user_project.receive_notifications = params[:user_project][:receive_notifications] == "1"
+    @user_project.save!
+  end
+
   private
 
   def user_params

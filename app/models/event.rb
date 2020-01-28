@@ -3,9 +3,11 @@ class Event < ApplicationRecord
   belongs_to :user
   has_many :notifications, as: :notifiable, dependent: :destroy
 
+  after_create :notify_project_users, unless: :skip_notifications
+
   scope :ordered, -> { order("start_at ASC") }
 
-  after_create :notify_project_users
+  attr_accessor :skip_notifications
 
   private
 

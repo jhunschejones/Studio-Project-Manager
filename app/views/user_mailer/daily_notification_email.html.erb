@@ -1,0 +1,13 @@
+<p>Hi <%= @user.name %>,</p>
+
+<p>Today there <%= @notifications.size == 1 ? "was" : "were" %> <%= pluralize(@notifications.size, "change") %> on your project '<%= @project.title %>':</p>
+<ol>
+  <% @notifications.each do |notification| %>
+    <li style="padding-left:0px;margin-left:0px;"><%= notification.description %></li>
+  <% end %>
+</ol>
+<br/>
+<p>Click <%= link_to("here", project_url(@project)) %> to view your project, or <%= link_to("here", edit_user_registration_url()) %> to change your notification preferences.</p>
+<hr/>
+<p>Joshua Hunsche Jones</p>
+<p>https://studio.joshuahunschejones.com</p>

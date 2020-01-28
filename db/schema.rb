@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
   create_table "notifications", force: :cascade do |t|
     t.string "action"
     t.text "description"
+    t.boolean "users_notified", default: false
     t.string "notifiable_type"
     t.bigint "notifiable_id"
     t.bigint "project_id", null: false
@@ -131,6 +132,7 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
     t.string "project_role", default: "project_user"
+    t.boolean "receive_notifications", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["project_id", "user_id"], name: "index_user_projects_on_project_id_and_user_id", unique: true

@@ -47,7 +47,7 @@
     </div>
 
     <div class="project-members">
-      <h3 class="title is-5 project-section-header">Project members:</h3>
+      <h3 class="title is-5 project-section-header">Members:</h3>
       <ul>
         <% @project.users.each do |user| %>
           <li class="project-member">
@@ -61,13 +61,29 @@
     </div>
 
     <div class="project-events">
-      <h3 class="title is-5 project-section-header">Project events:</h3>
+      <h3 class="title is-5 project-section-header">Events:</h3>
       <ul>
         <% @project.events.ordered.each do |event| %>
           <li class="project-event">
             <p><%= event.title %></p>
             <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
             <p class="event-time has-text-grey-light">Ends: <%= event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="project-notifications">
+      <h3 class="title is-5 project-section-header">Recent updates:</h3>
+      <ul>
+        <% @project.notifications.recent.each do |notification| %>
+          <li class="project-notification">
+            <p>
+              <%= notification.description %>
+              <span class="has-text-grey-light notification-timestamp">
+                <%= notification.created_at.localtime.strftime("%b. %-d, %Y") %>
+              </span>
+            </p>
           </li>
         <% end %>
       </ul>

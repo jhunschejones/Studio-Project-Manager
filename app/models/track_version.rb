@@ -4,9 +4,11 @@ class TrackVersion < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
 
-  after_create :notify_project_users
+  after_create :notify_project_users, unless: :skip_notifications
 
   scope :ordered, -> { order(:order) }
+
+  attr_accessor :skip_notifications
 
   def notify_project_users
     NotifyOnTrackVersionJob.set(wait: 2.minutes).perform_later(id, "added")

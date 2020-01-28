@@ -1,7 +1,3 @@
-if Rails.env.production?
-  Rails.application.routes.default_url_options[:host] = 'studio-project-manager.herokuapp.com'
-end
-
 Rails.application.routes.draw do
   root to: "projects#index"
 
@@ -10,6 +6,8 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+
+  resources :user_projects
 
   resources :projects, except: [:delete] do
     resources :events, only: [:edit, :create, :update, :destroy]
@@ -23,6 +21,7 @@ Rails.application.routes.draw do
     end
     post '/users', to: 'users#add_to_project', as: :add_user
     delete '/users/:user_id', to: 'users#remove_from_project', as: :remove_user
+    patch '/users/:user_id/preferences', to: 'users#update_preferences', as: :update_preferences
   end
   resources :users, only: [:show]
 end

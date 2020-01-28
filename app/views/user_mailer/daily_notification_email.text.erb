@@ -1,0 +1,12 @@
+Hi <%= @user.name %>,
+
+Today there <%= @notifications.size == 1 ? "was" : "were" %> <%= pluralize(@notifications.size, "change") %> on your project '<%= @project.title %>':
+  <% @notifications.each_with_index do |notification, index| %>
+    <%= index %>. <%= notification.description %>
+  <% end %>
+
+Follow this link to view your project:
+<%= project_url(@project) %>
+
+Or this link to change your user notification preferences:
+<%= edit_user_registration_url() %>

@@ -5,9 +5,11 @@ class Comment < ApplicationRecord
 
   has_rich_text :content
 
-  after_create :notify_project_users
+  after_create :notify_project_users, unless: :skip_notifications
 
   scope :ordered, -> { order("updated_at ASC") }
+
+  attr_accessor :skip_notifications
 
   private
 
