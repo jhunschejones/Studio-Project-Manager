@@ -55,8 +55,15 @@ class UsersController < ApplicationController
       project_id: params[:project_id]
     ).first
 
-    @user_project.receive_notifications = params[:user_project][:receive_notifications] == "1"
-    @user_project.save!
+    @user_project.receive_notifications = params[:button] == "Subscribe"
+
+    respond_to do |format|
+      if @user_project.save
+        format.js
+      else
+        format.js
+      end
+    end
   end
 
   private

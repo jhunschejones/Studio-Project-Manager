@@ -21,5 +21,7 @@ module StudioProjectManager
 
     # Disable field_with_errors wrapper-div on form error
     config.action_view.field_error_proc = Proc.new { |html_tag, instance| html_tag }
+    # automatically include authenticity token in forms
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end

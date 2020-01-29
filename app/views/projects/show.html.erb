@@ -26,25 +26,27 @@
       <% end %>
     </div>
 
-    <div class="project-links">
-      <h3 class="title is-5 project-section-header">Links:</h3>
-      <% if @project.links.size == 0 %>
-        <p>None yet!</p>
-      <% else %>
-        <ul>
-          <% @project.links.each do |link| %>
-            <li class="project-link">
-              <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
-                <span class="icon is-small external-link-icon">
-                  <i class="fas fa-external-link-alt"></i>
-                </span>
-                <span><%= link.text %></span>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
+    <% if @project.links.size > 0 %>
+      <div class="project-links">
+        <h3 class="title is-5 project-section-header">Links:</h3>
+        <% if @project.links.size == 0 %>
+          <p>None yet!</p>
+        <% else %>
+          <ul>
+            <% @project.links.each do |link| %>
+              <li class="project-link">
+                <%= link_to(link.url, target: "_blank", class: "has-text-link") do %>
+                  <span class="icon is-small external-link-icon">
+                    <i class="fas fa-external-link-alt"></i>
+                  </span>
+                  <span><%= link.text %></span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="project-members">
       <h3 class="title is-5 project-section-header">Members:</h3>

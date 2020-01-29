@@ -1,14 +1,22 @@
-.user-details {
+.user-details,
+.user-edit {
   padding: 16px;
 }
 
-// change styles on user edit form
-.devise-form {
-  form.edit_user_project {
-    display: inline-block;
+.user-edit {
+  h3.title {
+    margin-bottom: 16px;
   }
-  input[name="user_project[receive_notifications]"] {
-    transform: scale(1.15);
-    margin: 0px 4px;
+  .notification-prefrences {
+    .edit_user_project {
+      display: inline-block;
+    }
+    margin-top: 25px;
+    li {
+      margin-top: 10px;
+    }
+  }
+  .user-notifications-form-btn {
+    margin: -2px 0px 0px 5px;
   }
 }

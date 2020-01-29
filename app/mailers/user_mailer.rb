@@ -4,5 +4,7 @@ class UserMailer < ApplicationMailer
     @project = Project.find(project_id)
     @notifications = Notification.where(id: notification_ids)
     mail(to: @user.email, subject: 'Daily project updates')
+
+    @notifications.each { |notification| notification.update!(users_notified: true) }
   end
 end

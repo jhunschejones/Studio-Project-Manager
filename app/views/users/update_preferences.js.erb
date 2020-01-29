@@ -1,0 +1,7 @@
+<% if @user_project.receive_notifications? %>
+  document.querySelector("#edit_user_project_<%= @user_project.id %> button[value='Subscribe']").classList.add("is-hidden");
+  document.querySelector("#edit_user_project_<%= @user_project.id %> button[value='Unsubscribe']").classList.remove("is-hidden");
+<% else %>
+  document.querySelector("#edit_user_project_<%= @user_project.id %> button[value='Subscribe']").classList.remove("is-hidden");
+  document.querySelector("#edit_user_project_<%= @user_project.id %> button[value='Unsubscribe']").classList.add("is-hidden");
+<% end %>
