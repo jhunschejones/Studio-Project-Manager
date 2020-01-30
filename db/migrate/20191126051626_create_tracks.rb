@@ -4,7 +4,6 @@ class CreateTracks < ActiveRecord::Migration[6.0]
       t.string :title, null: false
       t.boolean :is_completed, default: false
       t.integer :order, default: 0
-      t.text :description
       t.references :project, null: false, foreign_key: {on_delete: :cascade}
 
       t.timestamps

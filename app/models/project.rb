@@ -6,6 +6,7 @@ class Project < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :links, as: :linkable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
+  has_rich_text :description
 
   scope :active, -> { where(is_archived: false) }
 

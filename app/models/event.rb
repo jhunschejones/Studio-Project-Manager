@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :project
   belongs_to :user
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_rich_text :description
 
   after_create :notify_project_users, unless: :skip_notifications
 

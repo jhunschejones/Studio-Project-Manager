@@ -2,6 +2,9 @@ class EventsController < ApplicationController
   before_action :set_project_or_redirect
   before_action :set_event_or_redirect, except: [:create]
 
+  def show
+  end
+
   def edit
   end
 
@@ -19,7 +22,7 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
-    edit_project_path(@project, anchor: "events")
+    redirect_to project_event_path(@project, @event)
   end
 
   def destroy

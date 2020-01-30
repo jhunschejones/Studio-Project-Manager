@@ -7,10 +7,8 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :user_projects
-
   resources :projects, except: [:delete] do
-    resources :events, only: [:edit, :create, :update, :destroy]
+    resources :events, only: [:show, :edit, :create, :update, :destroy]
     resources :links, only: [:edit, :create, :update, :destroy]
     resources :comments, only: [:edit, :update, :destroy]
     resources :tracks, only: [:show, :edit, :create, :update, :destroy] do

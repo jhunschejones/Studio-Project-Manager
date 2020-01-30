@@ -67,7 +67,7 @@
       <ul>
         <% @project.events.ordered.each do |event| %>
           <li class="project-event">
-            <p><%= event.title %></p>
+            <p><%= link_to(event.title, project_event_path(@project, event)) %></p>
             <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
             <p class="event-time has-text-grey-light">Ends: <%= event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
           </li>

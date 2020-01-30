@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
 
   create_table "events", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description"
     t.string "status"
     t.datetime "start_at"
     t.datetime "end_at"
@@ -98,7 +97,6 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
 
   create_table "projects", force: :cascade do |t|
     t.string "title", null: false
-    t.text "description"
     t.string "upload_link"
     t.datetime "archived_on"
     t.boolean "is_archived", default: false
@@ -110,7 +108,6 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
   create_table "track_versions", force: :cascade do |t|
     t.string "title", null: false
     t.integer "order", default: 0
-    t.text "description"
     t.bigint "track_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -121,7 +118,6 @@ ActiveRecord::Schema.define(version: 2020_01_25_215722) do
     t.string "title", null: false
     t.boolean "is_completed", default: false
     t.integer "order", default: 0
-    t.text "description"
     t.bigint "project_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

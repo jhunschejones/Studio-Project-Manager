@@ -1,14 +1,29 @@
-// Remove attachments button from editor
+// Remove attachments button from trix editor
 trix-toolbar {
   .trix-button-group--file-tools {
     display: none;
   }
 }
 
+// Style trix content editor boxes
 trix-editor {
   &#comment_content {
     min-height: 250px;
     max-height: 350px;
+    overflow-y: auto;
+  }
+  &#event_description {
+    height: 200px;
+    overflow-y: auto;
+  }
+  &#project_description {
+    height: 250px;
+    overflow-y: auto;
+  }
+  &#track_description,
+  &#track_version_description {
+    min-height: 200px;
+    max-height: 300px;
     overflow-y: auto;
   }
 }

@@ -1,7 +1,8 @@
 .create-project,
 .project-form,
 .all-projects,
-.project-details {
+.project-details,
+.project-event-details {
   padding: 16px;
 }
 
@@ -83,7 +84,21 @@
     top: 0px;
     position: sticky;
     z-index: 100;
-    background-color: white;
+    li {
+      background-color: white;
+    }
+
+    @media screen and (max-width: 650px) {
+      .link-text {
+        display: none;
+      }
+      // override default bulma padding for icons
+      .icon {
+        &:first-child {
+          margin-right: 0px;
+        }
+      }
+    }
   }
   // padding for hash routing
   h2::before {

@@ -1,4 +1,4 @@
-<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, page_title: { text: "Edit" })) %>
+<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, event: @event, page_title: { text: "Edit" })) %>
 
 <div class="project-form">
   <h2 class="title is-4">Edit project event</h2>
@@ -10,8 +10,8 @@
     </div>
 
     <div class="field">
-      <%= f.label :description, "Description:" %><br />
-      <%= f.text_area :description, class: "textarea" %>
+    <%= f.label :description, "Event description:" %><br />
+      <%= f.rich_text_area :description %>
     </div>
 
     <div class="field">
@@ -33,7 +33,7 @@
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Back", edit_project_path(@project, anchor: "events"), class: "button" %>
+      <%= link_to "Back", :back, class: "button" %>
     </div>
   <% end %>
   <br/>

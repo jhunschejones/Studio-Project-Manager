@@ -3,6 +3,7 @@ class TrackVersion < ApplicationRecord
   has_many :links, as: :linkable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :notifications, as: :notifiable, dependent: :destroy
+  has_rich_text :description
 
   after_create :notify_project_users, unless: :skip_notifications
 
