@@ -50,9 +50,7 @@
   <% end %>
 
   <div class="page-action-buttons">
-    <%= link_to("Add comment", new_project_track_track_version_comment_path(@project, @track, @track_version), class: "button is-warning") %>
-    <%= link_to("Edit track version", edit_project_track_track_version_path(@project, @track, @track_version), class: "button is-info") %>
-    <%= link_to("Back to track", project_track_path(@project, @track), class: "button") %>
-    <%= link_to("Back to project", project_path(@project), class: "button") %>
+    <%= link_to("Comment", new_project_track_track_version_comment_path(@project, @track, @track_version), class: "button is-warning") %>
+    <%= link_to("Edit", edit_project_track_track_version_path(@project, @track, @track_version), class: "button is-info") %>
   </div>
 </div>

@@ -1,22 +1,17 @@
-<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, page_title: { text: "Edit comment" })) %>
+<% if @track_version %>
+  <%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track_version.track, track_version: @track_version, page_title: { text: "Edit" })) %>
+<% end %>
 
 <div class="project-form">
   <h2 class="title is-4">Edit your comment:</h2>
 
   <%= form_for(@comment, url: project_comment_path(@project, @comment), remote: true) do |f| %>
-    <!--div class="field">
-      <%= f.label :title, "Comment title:" %><br />
-      <%= f.text_field :title, class: "input" %>
-    </div-->
-
     <div class="field">
-      <%#= f.label :content, "Content:" %>
       <%= f.rich_text_area :content %>
     </div>
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Back", :back, class: "button" %>
     </div>
   <% end %>
   <br/>

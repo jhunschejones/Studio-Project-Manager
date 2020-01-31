@@ -20,7 +20,7 @@
                 <i class="fas fa-edit"></i>
               </span>
             <% end %>
-            <%= link_to(project_comment_path(@project, comment), method: :delete, remote: true, class: "level-item delete-comment-button", data: { confirm: "Are you sure you want to delete your comment?" }) do %>
+            <%= link_to(project_comment_path(@project, comment), method: :delete, remote: true, class: "level-item delete-comment-button", data: { confirm: "Are you sure you want to delete your comment? This action is permanent." }) do %>
               <span class="icon">
                 <i class="fas fa-trash"></i>
               </span>

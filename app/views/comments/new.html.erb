@@ -1,23 +1,17 @@
-<%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track, track_version: @track_version, page_title: { text: "Add comment" })) %>
+<% if @track_version %>
+  <%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track_version.track, track_version: @track_version, page_title: { text: "Add comment" })) %>
+<% end %>
 
 <div class="project-form">
   <h2 class="title is-4">Add a comment:</h2>
 
-  <%= form_for(@comment, url: project_track_track_version_comments_path(@project, @track, @track_version), remote: true) do |f| %>
-    <!--div class="field">
-      <%= f.label :title, "Comment title:" %><br />
-      <%= f.text_field :title, class: "input" %>
-    </div-->
-
+  <%= form_for(@comment, url: @form_url, remote: true) do |f| %>
     <div class="field">
-      <%#= f.label :content, "Content:" %>
       <%= f.rich_text_area :content %>
     </div>
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Back to track version", project_track_track_version_path(@project, @track, @track_version), class: "button" %>
-      <%= link_to "Back to track", project_track_path(@project, @track), class: "button" %>
     </div>
   <% end %>
   <br/>

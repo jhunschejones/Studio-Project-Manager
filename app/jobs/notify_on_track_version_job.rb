@@ -8,7 +8,7 @@ class NotifyOnTrackVersionJob < ApplicationJob
     notification = Notification.new(
       project_id: track.project_id,
       action: action,
-      description: "'#{track_version.title}' was #{action} to track '#{track.title}'"
+      description: "A track version, '#{track_version.title}', was #{action} on '#{track.title}'"
     )
 
     track_version.notifications << notification

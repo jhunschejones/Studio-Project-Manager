@@ -27,9 +27,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Save", class: "button is-info" %>
-      <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
-      <%= link_to "Edit project", edit_project_path(@project, anchor: "tracks"), class: "button" %>
+      <%= f.submit "Save details", class: "button is-info" %>
     </div>
   <% end %>
 
@@ -58,8 +56,6 @@
 
     <div class="actions">
       <%= f.submit "Add track version", class: "button is-info" %>
-      <%= link_to "Track details", project_track_path(@project, @track), class: "button" %>
-      <%= link_to "Edit project", edit_project_path(@project, anchor: "tracks"), class: "button" %>
     </div>
   <% end %>
   <br/>

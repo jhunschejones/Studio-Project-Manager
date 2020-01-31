@@ -2,15 +2,29 @@
 
 <div class="project-event-details">
   <h3 class="title is-4 project-title"><%= @event.title %></h3>
-  <p class="event-time has-text-grey-light">Starts: <%= @event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
-  <p class="event-time has-text-grey-light">Ends: <%= @event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
-  <% unless @event.status.blank? %>
-    <p class="event-time has-text-grey-light">Status: <%= @event.status %></p>
+  <% if @event.start_at || @event.end_at || @event.status.present? %>
+    <div class="event-details">
+      <% if @event.start_at %>
+        <p class="event-time has-text-grey-light">Starts: <%= @event.start_at.localtime.strftime("%b. %-d, %Y, %l:%M%p %Z") %></p>
+      <% end %>
+      <% if @event.end_at %>
+        <p class="event-time has-text-grey-light">Ends: <%= @event.end_at.localtime.strftime("%b. %-d, %Y, %l:%M%p %Z") %></p>
+      <% end %>
+      <% if @event.status.present? %>
+        <p class="event-time has-text-grey-light">Status: <%= @event.status %></p>
+      <% end %>
+    </div>
+    <br/>
   <% end %>
-  <br/>
-  <div class="description"><%= @event.description %></div>
+
+  <div class="description">
+    <% if @event.description.blank? %>
+      This event has no description yet!
+    <% else %>
+      <%= @event.description %>
+    <% end %>
+  </div>
 
   <br/>
   <%= link_to("Edit event", edit_project_event_path(@project, @event), class: "button is-info") %>
-  <%= link_to("Back", :back, class: "button") %>
 </div>

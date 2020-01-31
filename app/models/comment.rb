@@ -11,6 +11,10 @@ class Comment < ApplicationRecord
 
   attr_accessor :skip_notifications
 
+  def commented_on_resource
+    commentable_type.constantize.find(commentable_id)
+  end
+
   private
 
   def notify_project_users

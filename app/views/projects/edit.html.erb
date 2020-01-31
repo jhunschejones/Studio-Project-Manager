@@ -34,8 +34,8 @@
         </a>
       </li>
       <li>
-        <%= link_to(project_path(@project)) do %>
-          <span class="icon is-small"><i class="fas fa-angle-left" aria-hidden="true"></i></span>
+        <%= link_to(:back) do %>
+          <span class="icon is-small"><i class="fas fa-chevron-left" aria-hidden="true"></i></span>
           <span class="link-text">Back</span>
         <% end %>
       </li>
@@ -56,8 +56,7 @@
     </div>
 
     <div class="actions">
-      <%= f.submit "Update", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
+      <%= f.submit "Save details", class: "button is-info" %>
     </div>
   <% end %>
 
@@ -85,7 +84,6 @@
 
     <div class="actions">
       <%= f.submit "Add track", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
 
@@ -111,7 +109,6 @@
 
     <div class="actions">
       <%= f.submit "Add link", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
 
@@ -138,7 +135,6 @@
 
     <div class="actions">
       <%= f.submit "Add user", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
 
@@ -176,7 +172,6 @@
 
     <div class="actions">
       <%= f.submit "Add event", class: "button is-info" %>
-      <%= link_to "Back", project_path(@project), class: "button" %>
     </div>
   <% end %>
 

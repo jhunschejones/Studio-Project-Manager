@@ -64,31 +64,39 @@
 
     <div class="project-events">
       <h3 class="title is-5 project-section-header">Events:</h3>
-      <ul>
-        <% @project.events.ordered.each do |event| %>
-          <li class="project-event">
-            <p><%= link_to(event.title, project_event_path(@project, event)) %></p>
-            <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
-            <p class="event-time has-text-grey-light">Ends: <%= event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
-          </li>
-        <% end %>
-      </ul>
+      <% if @project.events.size == 0 %>
+        <p>None yet!</p>
+      <% else %>
+        <ul>
+          <% @project.events.ordered.each do |event| %>
+            <li class="project-event">
+              <p><%= link_to(event.title, project_event_path(@project, event)) %></p>
+              <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
+              <p class="event-time has-text-grey-light">Ends: <%= event.end_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
 
     <div class="project-notifications">
       <h3 class="title is-5 project-section-header">Recent updates:</h3>
-      <ul>
-        <% @project.notifications.recent.each do |notification| %>
-          <li class="project-notification">
-            <p>
-              <%= notification.description %>
-              <span class="has-text-grey-light notification-timestamp">
-                <%= notification.created_at.localtime.strftime("%b. %-d, %Y") %>
-              </span>
-            </p>
-          </li>
-        <% end %>
-      </ul>
+      <% if @project.notifications.recent.size == 0 %>
+        <p>None yet!</p>
+      <% else %>
+        <ul>
+          <% @project.notifications.recent.each do |notification| %>
+            <li class="project-notification">
+              <p>
+                <%= notification.description %>
+                <span class="has-text-grey-light notification-timestamp">
+                  <%= notification.created_at.localtime.strftime("%b. %-d, %Y") %>
+                </span>
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
   </div>
 

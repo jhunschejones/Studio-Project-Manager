@@ -26,6 +26,10 @@ trix-editor {
     max-height: 300px;
     overflow-y: auto;
   }
+  // bulma overrides this so we need to set it back
+  li {
+    list-style-type: disc;
+  }
 }
 
 .box.comment {
