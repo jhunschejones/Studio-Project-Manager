@@ -28,35 +28,38 @@
 
     <div class="actions">
       <%= f.submit "Save details", class: "button is-info" %>
+      <%= link_to "Back", :back, class: "button" %>
     </div>
   <% end %>
 
   <br/>
 
-  <h2 class="title is-4">Edit track versions</h2>
+  <% if current_user.can_manage_track_versions?(@project) %>
+    <h2 class="title is-4">Edit track versions</h2>
 
-  <ul class="track_versions">
-    <%= render(@track.track_versions.ordered, locals: { project: @project, track: @track }) %>
-  </ul>
+    <ul class="track_versions">
+      <%= render(@track.track_versions.ordered, locals: { project: @project, track: @track }) %>
+    </ul>
 
-  <br/>
+    <br/>
 
-  <%= form_for(@track_version, url: project_track_track_versions_path(@project, @track), remote: true) do |f| %>
-    <div class="field">
-      <%= f.label :title, "Track version title:" %><br />
-      <%= f.text_field :title, class: "input" %>
-    </div>
-
-    <div class="field track_order">
-      <%= f.label :order, "Track version order:" %>
-      <div class="select">
-        <%= f.select :order, 0..20 %>
+    <%= form_for(@track_version, url: project_track_track_versions_path(@project, @track), remote: true) do |f| %>
+      <div class="field">
+        <%= f.label :title, "Track version title:" %><br />
+        <%= f.text_field :title, class: "input" %>
       </div>
-    </div>
 
-    <div class="actions">
-      <%= f.submit "Add track version", class: "button is-info" %>
-    </div>
+      <div class="field track_order">
+        <%= f.label :order, "Track version order:" %>
+        <div class="select">
+          <%= f.select :order, 0..20 %>
+        </div>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Add track version", class: "button is-info" %>
+      </div>
+    <% end %>
+    <br/>
   <% end %>
-  <br/>
 </div>

@@ -34,3 +34,54 @@
     }
   }
 }
+
+// Remove attachments button from trix editor
+trix-toolbar {
+  .trix-button-group--file-tools {
+    display: none;
+  }
+}
+
+// Style trix content editor boxes
+trix-editor {
+  &#comment_content {
+    min-height: 250px;
+    max-height: 350px;
+    overflow-y: auto;
+  }
+  &#event_description {
+    height: 200px;
+    overflow-y: auto;
+  }
+  &#project_description {
+    height: 250px;
+    overflow-y: auto;
+  }
+  &#track_description,
+  &#track_version_description {
+    min-height: 200px;
+    max-height: 300px;
+    overflow-y: auto;
+  }
+}
+
+// bulma overrides this so we need to set it back
+trix-editor,
+.trix-content {
+  ul {
+    li {
+      margin-left: 24px;
+      list-style-type: disc;
+      &:before {
+        content: "";
+        margin-right: -4px;
+      }
+    }
+  }
+  ol {
+    li {
+      margin-left: 22px;
+      // list-style-type: number;
+    }
+  }
+}

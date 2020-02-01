@@ -60,7 +60,7 @@ class CommentsController < ApplicationController
 
   def set_comment_or_redirect
     @comment = Comment.find(params[:id])
-    unless current_user.can_manage_resource?(@comment)
+    unless current_user.can_manage_user_owned_resource?(@comment)
       flash[:alert] = "You cannot modify that comment."
       redirect_to_resource
     end

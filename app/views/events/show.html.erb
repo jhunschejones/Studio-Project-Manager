@@ -25,6 +25,8 @@
     <% end %>
   </div>
 
-  <br/>
-  <%= link_to("Edit event", edit_project_event_path(@project, @event), class: "button is-info") %>
+  <% if current_user.can_manage_events?(@project, @event) %>
+    <br/>
+    <%= link_to("Edit event", edit_project_event_path(@project, @event), class: "button is-info") %>
+  <% end %>
 </div>

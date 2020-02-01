@@ -1,8 +1,9 @@
 class EventsController < ApplicationController
   before_action :set_project_or_redirect
-  before_action :set_event_or_redirect, except: [:create]
+  before_action :set_event_or_redirect, except: [:show, :create]
 
   def show
+    @event = Event.find(params[:id])
   end
 
   def edit
@@ -22,6 +23,7 @@ class EventsController < ApplicationController
 
   def update
     @event.update(event_params)
+    NotifyOnEventJob.set(wait: 2.minutes).perform_later(@event.id, "updated", current_user.id)
     redirect_to project_event_path(@project, @event)
   end
 
@@ -43,6 +45,6 @@ class EventsController < ApplicationController
 
   def set_event_or_redirect
     @event = Event.find(params[:id])
-    redirect_to project_path(@project), alert: "You cannot modify that event." unless current_user.can_manage_resource?(@event)
+    redirect_to project_path(@project), alert: "You cannot modify that event." unless current_user.can_manage_events?(@project, @event)
   end
 end

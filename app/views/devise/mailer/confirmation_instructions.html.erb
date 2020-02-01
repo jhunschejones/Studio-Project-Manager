@@ -1,5 +1,10 @@
-<p>Welcome <%= @email %>!</p>
+<p>Welcome <%= @name %>,</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>You can confirm your account at https://studio.joshuahunschejones.com by following the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<p>If you did not request a confirmation link, feel free to ignore this email.</p>
+<hr/>
+<p>Joshua Hunsche Jones</p>
+<p>https://studio.joshuahunschejones.com</p>

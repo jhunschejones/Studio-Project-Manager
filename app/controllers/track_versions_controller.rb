@@ -1,9 +1,10 @@
 class TrackVersionsController < ApplicationController
   before_action :set_project_or_redirect
   before_action :set_track
-  before_action :set_track_version, except: [:create]
+  before_action :set_track_version, except: [:show, :create]
 
   def show
+    @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:id])
   end
 
   def edit
@@ -58,5 +59,6 @@ class TrackVersionsController < ApplicationController
 
   def set_track_version
     @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:id])
+    redirect_to project_path(@project), alert: "You cannot modify that track version." unless current_user.can_manage_track_versions?(@project)
   end
 end

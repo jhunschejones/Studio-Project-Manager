@@ -54,7 +54,7 @@ class LinksController < ApplicationController
 
   def set_link
     link = Link.find(params[:id])
-    @link = current_user.can_manage_resource?(link) ? link : nil
+    @link = current_user.can_manage_user_owned_resource?(link) ? link : nil
   end
 
   def redirect_to_resource

@@ -16,13 +16,13 @@
 
     <div class="field">
       <%= f.label :start_at, "Event starts at:" %><br />
-      <%= f.datetime_select :start_at, ampm: true, use_short_month: true, order: [:month, :day, :year] %>
+      <%= f.datetime_select :start_at, ampm: true, use_short_month: true, order: [:month, :day, :year], minute_step: 10, start_year: 1.year.ago.year %>
       <small class="has-text-grey-light">(USA Pacific Time)</small>
     </div>
 
     <div class="field">
       <%= f.label :end_at, "Event ends at:" %><br />
-      <%= f.datetime_select :end_at, ampm: true, use_short_month: true, order: [:month, :day, :year] %>
+      <%= f.datetime_select :end_at, ampm: true, use_short_month: true, order: [:month, :day, :year], minute_step: 10, start_year: 1.year.ago.year %>
       <small class="has-text-grey-light">(USA Pacific Time)</small>
     </div>
 
@@ -33,6 +33,7 @@
 
     <div class="actions">
       <%= f.submit "Save", class: "button is-info" %>
+      <%= link_to "Back", :back, class: "button" %>
     </div>
   <% end %>
   <br/>

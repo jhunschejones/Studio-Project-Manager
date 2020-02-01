@@ -7,7 +7,7 @@
       <span><%= link.text %></span>
     <% end %>
   </span>
-  <% if current_user.can_manage_resource?(link) %>
+  <% if current_user.can_manage_user_owned_resource?(link) %>
     <strong class="resource-action-divider has-text-link">|</strong>
     <%= link_to("Edit", edit_project_link_path(@project, link), class: "has-text-link") %>
     <strong class="resource-action-divider has-text-link">|</strong>

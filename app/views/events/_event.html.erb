@@ -1,8 +1,10 @@
 <li class="event event_<%= event.id %>">
   <span class="resource-title"><%= event.title %></span>
 
-  <strong class="resource-action-divider has-text-link">|</strong>
-  <%= link_to("Edit", edit_project_event_path(@project, event), class: "has-text-link") %>
-  <strong class="resource-action-divider has-text-link">|</strong>
-  <%= link_to("Delete", project_event_path(@project, event), method: :delete, remote: :true, class: "has-text-link", data: { confirm: "Are you sure you want to delete the '#{event.title}' event? This action is permanent." }) %>
+  <% if current_user.can_manage_user_owned_resource?(@event) %>
+    <strong class="resource-action-divider has-text-link">|</strong>
+    <%= link_to("Edit", edit_project_event_path(@project, event), class: "has-text-link") %>
+    <strong class="resource-action-divider has-text-link">|</strong>
+    <%= link_to("Delete", project_event_path(@project, event), method: :delete, remote: :true, class: "has-text-link", data: { confirm: "Are you sure you want to delete the '#{event.title}' event? This action is permanent." }) %>
+  <% end %>
 </li>

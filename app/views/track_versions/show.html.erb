@@ -51,6 +51,8 @@
 
   <div class="page-action-buttons">
     <%= link_to("Comment", new_project_track_track_version_comment_path(@project, @track, @track_version), class: "button is-warning") %>
+  <% if current_user.can_manage_track_versions?(@project) %>
     <%= link_to("Edit", edit_project_track_track_version_path(@project, @track, @track_version), class: "button is-info") %>
+  <% end %>
   </div>
 </div>

@@ -54,8 +54,12 @@ class User < ApplicationRecord
     site_role == SITE_CREATOR
   end
 
-  def can_manage_resource?(resource)
-    is_site_admin? || (resource.user_id && resource.user_id == id)
+  def is_project_owner?(project)
+    UserProject.where(user_id: id, project_id: project.id, project_role: UserProject::PROJECT_OWNER).exists?
+  end
+
+  def can_manage_user_owned_resource?(resource)
+    is_site_admin? || (resource[:user_id] && resource[:user_id] == id)
   end
 
   def can_create_projects?
@@ -74,8 +78,12 @@ class User < ApplicationRecord
     is_site_admin? || is_project_owner?(project)
   end
 
-  def is_project_owner?(project)
-    UserProject.where(user_id: id, project_id: project.id, project_role: UserProject::PROJECT_OWNER).exists?
+  def can_manage_track_versions?(project)
+    is_site_admin? || is_project_owner?(project)
+  end
+
+  def can_manage_events?(project, event)
+    is_project_owner?(project) || can_manage_user_owned_resource?(event)
   end
 
   # --- SECURITY LIBRARY OVERRIDES ---
