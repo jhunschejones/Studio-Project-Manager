@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyText
-  upload_link: MyString
-  archived: false
+  title: My First Project
+  upload_link: upload.files.here.com
+  is_archived: false
 
 two:
-  title: MyString
-  description: MyText
-  upload_link: MyString
-  archived: false
+  title: Here Comes The Storm LP1
+  upload_link: second.upload.link.com
+  is_archived: false

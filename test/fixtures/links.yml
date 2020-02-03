@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  text: MyString
-  url: MyString
-  link_for_class: MyString
-  link_for_id: 1
+  text: Mix 01 MP3
+  url: my.first.download.link.com
+  user: one
+  linkable: one (TrackVersion)
 
 two:
-  text: MyString
-  url: MyString
-  link_for_class: MyString
-  link_for_id: 1
+  text: Refrence Gtr Riff
+  url: my.other.download.link.com
+  user: one
+  linkable: one (Project)

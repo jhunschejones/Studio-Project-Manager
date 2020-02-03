@@ -5,7 +5,7 @@ require 'minitest/rails' # allows `describe` blocks
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+  # parallelize(workers: :number_of_processors)
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -18,4 +18,7 @@ class ActiveSupport::TestCase
   teardown do
     DatabaseCleaner.clean
   end
+
+  # https://github.com/heartcombo/devise/wiki/How-To:-sign-in-and-out-a-user-in-Request-type-specs-(specs-tagged-with-type:-:request)
+  include Devise::Test::IntegrationHelpers
 end

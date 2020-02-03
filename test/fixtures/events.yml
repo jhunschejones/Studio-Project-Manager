@@ -1,15 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  description: MyText
-  scheduled_for: 2019-11-25 21:16:19
-  completed_on: 2019-11-25 21:16:19
+  title: Drum Tracking
+  start_at: 2019-11-25 21:16:19
+  end_at: 2019-11-25 21:16:19
   project: one
+  user: one
 
 two:
-  title: MyString
-  description: MyText
-  scheduled_for: 2019-11-25 21:16:19
-  completed_on: 2019-11-25 21:16:19
+  title: Mastering
+  start_at: 2019-11-25 21:16:19
+  end_at: 2019-11-25 21:16:19
   project: two
+  user: one
