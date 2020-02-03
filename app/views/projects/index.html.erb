@@ -5,7 +5,7 @@
   <% if current_user.is_site_admin? %>
     <br/>
     <h1 class="title is-4">Other projects</h1>
-    <ul><%= render(Project.active - @projects) %></ul>
+    <ul><%= render(Project.all - @projects) %></ul>
   <% end %>
 
   <br/>

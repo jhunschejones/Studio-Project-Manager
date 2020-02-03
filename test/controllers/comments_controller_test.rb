@@ -1,6 +1,6 @@
 require 'test_helper'
 
-# bundle exec ruby -Itest /Users/jjones/Documents/GitHub/Studio-Project-Manager/test/controllers/comments_controller_test.rb
+# bundle exec ruby -Itest test/controllers/comments_controller_test.rb
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   describe "#new" do
     describe "when no user is logged in" do

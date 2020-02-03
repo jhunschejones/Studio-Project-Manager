@@ -31,10 +31,7 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    if project_params[:title] || project_params[:description]
-      @project.update!(title: project_params[:title], description: project_params[:description])
-    end
-
+    @project.update!(project_params)
     redirect_to project_path(@project)
   end
 
