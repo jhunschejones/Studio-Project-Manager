@@ -32,7 +32,6 @@ class LinksController < ApplicationController
 
   def update
     @link.update(text: link_params[:text], url: link_params[:url])
-
     redirect_to_resource
   end
 
@@ -53,8 +52,8 @@ class LinksController < ApplicationController
   end
 
   def set_link
-    link = Link.find(params[:id])
-    @link = current_user.can_manage_user_owned_resource?(link) ? link : nil
+    @link = Link.find(params[:id])
+    redirect_to project_path(@project), alert: "You cannot modify that link." unless current_user.can_manage_user_owned_resource?(@link)
   end
 
   def redirect_to_resource
