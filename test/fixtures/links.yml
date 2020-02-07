@@ -1,12 +1,12 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+track_version_link:
   text: Mix 01 MP3
   url: my.first.download.link.com
   user: one
   linkable: one (TrackVersion)
 
-two:
+project_link:
   text: Refrence Gtr Riff
   url: my.other.download.link.com
   user: one
