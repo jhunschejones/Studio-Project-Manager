@@ -1,5 +1,6 @@
 class TrackVersionsController < ApplicationController
   before_action :set_project_or_redirect
+  before_action :track_version_modify_or_redirect, except: [:show]
   before_action :set_track
   before_action :set_track_version, except: [:show, :create]
 
@@ -12,12 +13,7 @@ class TrackVersionsController < ApplicationController
   end
 
   def create
-    @track_version = TrackVersion.new(
-      title: track_versions_params[:title],
-      description: track_versions_params[:description],
-      order: track_versions_params[:order],
-      track_id: @track.id,
-    )
+    @track_version = TrackVersion.new(track_versions_params.merge({track_id: @track.id}))
 
     respond_to do |format|
       if @track_version.save
@@ -29,11 +25,7 @@ class TrackVersionsController < ApplicationController
   end
 
   def update
-    @track_version.update(
-      title: track_versions_params[:title],
-      description: track_versions_params[:description],
-      order: track_versions_params[:order],
-    )
+    @track_version.update(track_versions_params)
     redirect_to project_track_track_version_path(@project, @track, @track_version)
   end
 
@@ -59,6 +51,9 @@ class TrackVersionsController < ApplicationController
 
   def set_track_version
     @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:id])
+  end
+
+  def track_version_modify_or_redirect
     redirect_to project_path(@project), alert: "You cannot modify that track version." unless current_user.can_manage_track_versions?(@project)
   end
 end
