@@ -159,15 +159,30 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
 
   describe "#destroy" do
     describe "when no user is logged in" do
-      test "no tracks are destroyed" do
-        assert_no_difference 'Track.count' do
+      describe "format js" do
+        test "no tracks are destroyed" do
+          assert_no_difference 'Track.count' do
+            delete project_track_path(projects(:one), tracks(:one), format: :js)
+          end
+        end
+
+        test "responds with 401" do
           delete project_track_path(projects(:one), tracks(:one), format: :js)
+          assert_response :unauthorized
         end
       end
 
-      test "responds with 401" do
-        delete project_track_path(projects(:one), tracks(:one), format: :js)
-        assert_response :unauthorized
+      describe "format html" do
+        test "no tracks are destroyed" do
+          assert_no_difference 'Track.count' do
+            delete project_track_path(projects(:one), tracks(:one))
+          end
+        end
+
+        test "redirects to the login page" do
+          delete project_track_path(projects(:one), tracks(:one))
+          assert_redirected_to new_user_session_path
+        end
       end
     end
 
@@ -184,8 +199,14 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
         end
 
         test "no tracks are destroyed" do
+          # format.js
           assert_no_difference 'Track.count' do
             delete project_track_path(projects(:one), tracks(:one), format: :js)
+          end
+
+          # format.html
+          assert_no_difference 'Track.count' do
+            delete project_track_path(projects(:one), tracks(:one))
           end
         end
 
@@ -203,9 +224,24 @@ class TracksControllerTest < ActionDispatch::IntegrationTest
           UserProject.create(user_id: users(:one).id, project_id: projects(:one).id, project_role: "project_owner")
         end
 
-        test "destroys track" do
-          assert_difference 'Track.count', -1 do
-            delete project_track_path(projects(:one), tracks(:one), format: :js)
+        describe "format js" do
+          test "destroys track" do
+            assert_difference 'Track.count', -1 do
+              delete project_track_path(projects(:one), tracks(:one), format: :js)
+            end
+          end
+        end
+
+        describe "format html" do
+          test "destroys track" do
+            assert_difference 'Track.count', -1 do
+              delete project_track_path(projects(:one), tracks(:one))
+            end
+          end
+
+          test "redirects to project page" do
+            delete project_track_path(projects(:one), tracks(:one))
+            assert_redirected_to project_path(projects(:one))
           end
         end
       end
