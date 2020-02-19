@@ -78,6 +78,10 @@ class User < ApplicationRecord
     is_site_admin? || is_project_owner?(project)
   end
 
+  def can_delete_tracks?(project)
+    is_site_admin? || is_project_owner?(project)
+  end
+
   def can_manage_track_versions?(project)
     is_site_admin? || is_project_owner?(project)
   end

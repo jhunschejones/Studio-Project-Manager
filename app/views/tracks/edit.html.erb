@@ -62,4 +62,11 @@
     <% end %>
     <br/>
   <% end %>
+
+  <% if current_user.can_delete_tracks?(@project) %>
+    <br/>
+    <h2 class="title is-4 has-text-danger">Danger Section<h2>
+    <%= link_to("Delete track", project_track_path(@project, @track), method: :delete, class: "button is-danger", data: { confirm: "Are you sure you want to delete '#{@track.title}'? This action is permanent." }) %>
+    <br/><br/>
+  <% end %>
 </div>

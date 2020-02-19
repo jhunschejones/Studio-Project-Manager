@@ -1,6 +1,6 @@
 class TracksController < ApplicationController
   before_action :set_project_or_redirect
-  before_action :set_track, only: [:show, :edit, :update, :destroy]
+  before_action :set_track, except: [:create]
 
   def show
   end
@@ -10,12 +10,7 @@ class TracksController < ApplicationController
   end
 
   def create
-    @track = Track.new(
-      title: track_params[:title],
-      description: track_params[:description],
-      order: track_params[:order],
-      project_id: @project.id,
-    )
+    @track = Track.new(track_params.except(:is_completed).merge({project_id: @project.id}))
 
     respond_to do |format|
       if @track.save
@@ -27,22 +22,23 @@ class TracksController < ApplicationController
   end
 
   def update
-    @track.update(
-      title: track_params[:title],
-      description: track_params[:description],
-      is_completed: track_params[:is_completed],
-      order: track_params[:order]
-    )
+    @track.update(track_params)
     redirect_to project_track_path(@project, @track)
   end
 
   def destroy
-    respond_to do |format|
-      if @track.destroy
-        format.js
-      else
-        format.js
+    if current_user.can_delete_tracks?(@project)
+      respond_to do |format|
+        if @track.destroy
+          format.js
+          format.html { redirect_to project_path(@project) }
+        else
+          format.js
+          format.html { redirect_to project_path(@project), alert: "Unable to delete track." }
+        end
       end
+    else
+      redirect_to project_path(@project), alert: "You cannot delete tracks."
     end
   end
 

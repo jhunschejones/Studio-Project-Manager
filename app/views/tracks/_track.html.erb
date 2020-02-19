@@ -7,6 +7,8 @@
 
   <strong class="resource-action-divider has-text-link">|</strong>
   <%= link_to("Edit", edit_project_track_path(@project, track), class: "has-text-link") %>
-  <strong class="resource-action-divider has-text-link">|</strong>
-  <%= link_to("Delete", project_track_path(@project, track), method: :delete, remote: :true, class: "has-text-link", data: { confirm: "Are you sure you want to delete '#{track.title}'? This action is permanent." }) %>
+  <% if current_user.can_delete_tracks?(@project) %>
+    <strong class="resource-action-divider has-text-link">|</strong>
+    <%= link_to("Delete", project_track_path(@project, track), method: :delete, remote: :true, class: "has-text-link", data: { confirm: "Are you sure you want to delete '#{track.title}'? This action is permanent." }) %>
+  <% end %>
 </li>
