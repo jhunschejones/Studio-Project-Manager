@@ -3,17 +3,19 @@ class UsersController < ApplicationController
 
   def show
     if params[:id] != current_user.id.to_s
-      redirect_to user_path(current_user.id)
+      redirect_to user_path(current_user.id), alert: "You cannot view other user's profiles."
     end
 
     @user = current_user
   end
 
   def add_to_project
-    @user = User.where(email: user_params[:email]).first || begin
+    @email = user_params[:email].strip
+
+    @user = User.where(email: @email).first || begin
       new_user_name = user_params[:name].strip
       new_user_name = "New User" if new_user_name.empty?
-      User.invite!({email: user_params[:email].strip, name: new_user_name}, current_user)
+      User.invite!({email: @email, name: new_user_name}, current_user)
     end
 
     @user_project = UserProject.new(

@@ -1,3 +1,13 @@
+<%#
+# When a form submission generates errors, this view is rendered but at the rout
+# where the form is submitted, i.e. "/users". This works fine for the initial
+# render but if the user refreshes the page, there is no actual "/users" route
+# which results in a confusing experience.
+%>
+<% if resource.errors.any? %>
+  <script>window.history.replaceState("", "", '/users/edit');</script>
+<% end %>
+
 <div class="user-edit">
   <div class="edit-user-details">
     <h3 class="title is-4">Edit <%= resource_name.to_s.humanize.downcase %> details</h3>

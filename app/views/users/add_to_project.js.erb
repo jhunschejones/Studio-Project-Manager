@@ -1,9 +1,13 @@
-<% if @user_project.valid? %>
+<% if @user_project.try(:valid?) %>
   document.querySelector(".users").insertAdjacentHTML("beforeend", "<%= escape_javascript(render @user, locals: { project: @project }) %>");
   document.getElementsByName("user[name]")[0].value = "";
   document.getElementsByName("user[email]")[0].value = "";
 <% else %>
-  document.getElementsByName("user[name]")[0].value = "";
   document.getElementsByName("user[email]")[0].value = "";
-  alert('<%= "User #{@user.email} is already on this project" %>');
+  <% if @email.blank? %>
+    alert('<%= "You must enter a valid email to add a user to a project." %>');
+  <% else %>
+    alert('<%= "Unable to add user with email #{@email} to this project." %>');
+  <% end %>
+  document.getElementsByName("user[email]")[0].select();
 <% end %>
