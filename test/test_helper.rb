@@ -21,4 +21,6 @@ class ActiveSupport::TestCase
 
   # https://github.com/heartcombo/devise/wiki/How-To:-sign-in-and-out-a-user-in-Request-type-specs-(specs-tagged-with-type:-:request)
   include Devise::Test::IntegrationHelpers
+
+  include ActiveJob::TestHelper
 end
