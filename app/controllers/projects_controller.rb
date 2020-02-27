@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project_or_redirect, except: [:index, :new, :create]
+  before_action :project_create_or_redirect, only: [:new, :create]
 
   def index
     @projects = current_user.projects.active.includes(:users, :tracks, :events)
@@ -9,7 +10,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    redirect_to projects_path, notice: "You are not allowed to create new projects" unless current_user.can_create_projects?
     @project = Project.new
   end
 
@@ -21,13 +21,9 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    if current_user.can_create_projects?
-      project = Project.create!(project_params)
-      UserProject.create!(user_id: current_user.id, project_id: project.id, project_role: UserProject::PROJECT_OWNER)
-      redirect_to project_path(project)
-    else
-      redirect_to projects_path, notice: "You are not allowed to create new projects"
-    end
+    project = Project.create!(project_params)
+    UserProject.create!(user_id: current_user.id, project_id: project.id, project_role: UserProject::PROJECT_OWNER)
+    redirect_to project_path(project)
   end
 
   def update
@@ -36,17 +32,18 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    if current_user.can_archive_project?(@project)
-      @project.archive!
-      redirect_to projects_path
-    else
-      redirect_to projects_path, notice: "You are not allowed to archive the '#{@project.title}' project"
-    end
+    return redirect_to projects_path, notice: "You are not allowed to archive the '#{@project.title}' project" unless current_user.can_archive_project?(@project)
+    @project.archive!
+    redirect_to projects_path
   end
 
   private
 
   def project_params
     params.require(:project).permit(:title, :description)
+  end
+
+  def project_create_or_redirect
+    redirect_to projects_path, notice: "You are not allowed to create new projects" unless current_user.can_create_projects?
   end
 end
