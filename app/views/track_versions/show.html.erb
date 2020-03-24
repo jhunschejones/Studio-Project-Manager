@@ -1,18 +1,8 @@
 <%= render("projects/breadcrumbs", breadcrumbs: ProjectsHelper.breadcrumbs_for(project: @project, track: @track, track_version: @track_version)) %>
 
 <div class="track-version-details">
-  <h1 class="title is-4 track-version-title"><%= @track.title %>: <%= @track_version.title %></h1>
-  <ul>
-    <% @track.track_versions.ordered.each do |version| %>
-      <% if version.id == @track_version.id %>
-        <li class="current-track-version"><%= version.title %></li>
-      <% else %>
-        <li class="track-version">
-          <%= link_to(version.title, project_track_track_version_path(@project, @track, version), class: "has-text-link") %>
-        </li>
-      <% end %>
-    <% end %>
-  </ul>
+  <h1 class="title is-4 track-version-title"><%= @track_version.title %></h1>
+  <p><span class="has-text-grey-light">Version of: </span> <%= link_to(@track.title, project_track_path(@project, @track)) %></p>
 
   <% unless @track_version.description.blank? %>
     <br/>
@@ -46,7 +36,7 @@
   <% if @track_version.comments.size == 0 %>
     <p>None yet!</p><br/>
   <% else %>
-    <%= render @track_version.comments.ordered %>
+    <%= render @track_version.comments.sort_by(&:updated_at) %>
   <% end %>
 
   <div class="page-action-buttons">

@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   before_action :project_create_or_redirect, only: [:new, :create]
 
   def index
-    @projects = current_user.projects.active.includes(:users, :tracks, :events)
+    @projects = current_user.projects.active.order(:created_at).includes(:users, :tracks, :events)
   end
 
   def show

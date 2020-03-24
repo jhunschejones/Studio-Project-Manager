@@ -65,7 +65,7 @@
 
   <h2 id="tracks" class="title is-4">Edit project tracks<h2>
   <ul class="tracks">
-    <%= render(@project.tracks.ordered, locals: { project: @project }) %>
+    <%= render(@project.tracks.sort_by(&:order), locals: { project: @project }) %>
   </ul>
 
   <br/>

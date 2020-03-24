@@ -2,5 +2,5 @@ var tracksList = document.querySelector(".tracks");
 while (tracksList.firstChild) {
   tracksList.removeChild(tracksList.firstChild);
 }
-document.querySelector(".tracks").insertAdjacentHTML("beforeend", "<%= escape_javascript render(@project.tracks.ordered, locals: { project: @project }) %>");
+document.querySelector(".tracks").insertAdjacentHTML("beforeend", "<%= escape_javascript render(@project.tracks.sort_by(&:order), locals: { project: @project }) %>");
 document.getElementsByName("track[title]")[0].value = "";

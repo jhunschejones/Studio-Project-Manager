@@ -38,7 +38,7 @@
     <h2 class="title is-4">Edit track versions</h2>
 
     <ul class="track_versions">
-      <%= render(@track.track_versions.ordered, locals: { project: @project, track: @track }) %>
+      <%= render(@track.track_versions.sort_by(&:order), locals: { project: @project, track: @track }) %>
     </ul>
 
     <br/>

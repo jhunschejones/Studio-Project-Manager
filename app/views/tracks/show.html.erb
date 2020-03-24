@@ -20,7 +20,7 @@
     <p>None yet!</p>
   <% else %>
     <ul>
-      <% @track.track_versions.ordered.each do |version| %>
+      <% @track.track_versions.sort_by(&:order).each do |version| %>
         <li class="track-version">
           <%= link_to(project_track_track_version_path(@project, @track, version), class: "has-text-link") do %>
             <span class="resource-order has-text-grey-light"><%= sprintf('%02d', version.order) %>&colon;</span>

@@ -11,7 +11,7 @@
         <p>None yet!</p>
       <% else %>
         <ul>
-          <% @project.tracks.ordered.each do |track| %>
+          <% @project.tracks.sort_by(&:order).each do |track| %>
             <li class="project-track">
               <span class="resource-order has-text-grey-light"><%= sprintf('%02d', track.order) %>&colon;</span>
               <%= link_to(project_track_path(@project, track), class: "has-text-link") do %>
@@ -68,7 +68,7 @@
         <p>None yet!</p>
       <% else %>
         <ul>
-          <% @project.events.ordered.each do |event| %>
+          <% @project.events.sort_by(&:start_at).each do |event| %>
             <li class="project-event">
               <p><%= link_to(event.title, project_event_path(@project, event)) %></p>
               <p class="event-time has-text-grey-light">Starts: <%= event.start_at.try(:localtime).try(:strftime, "%b. %-d, %Y, %l:%M%p %Z") %></p>
