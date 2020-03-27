@@ -15,7 +15,7 @@ class SendDailyNotificationsJob < ApplicationJob
             UserMailer.daily_notification_email(user.id, project.id, unsent_notifications.pluck(:id)).deliver_now
           end
         else
-          puts "#{user.name} has notifications disabled for the '#{project.title}' project"
+          puts "#{user.name} has notifications disabled for the '#{project.title}' project" unless Rails.env.test?
           unsent_notifications.each { |notification| notification.update!(users_notified: true) }
         end
       end

@@ -17,6 +17,7 @@ class ActiveSupport::TestCase
 
   teardown do
     DatabaseCleaner.clean
+    ActionMailer::Base.deliveries.clear
   end
 
   # https://github.com/heartcombo/devise/wiki/How-To:-sign-in-and-out-a-user-in-Request-type-specs-(specs-tagged-with-type:-:request)
