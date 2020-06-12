@@ -4,6 +4,8 @@ class Event < ApplicationRecord
   has_many :notifications, as: :notifiable, dependent: :destroy
   has_rich_text :description
 
+  validates :start_at, presence: true
+
   after_create :notify_project_users, unless: :skip_notifications
 
   scope :ordered, -> { order("start_at ASC") }

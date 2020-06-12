@@ -77,13 +77,13 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
   describe "#create" do
     describe "when user is not logged in" do
       test "responds with 401 to js request format" do
-        post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event" } }
+        post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event", start_at: Time.now.to_s } }
         assert_response :unauthorized
       end
 
       test "does not create an event" do
         assert_no_difference 'Event.count' do
-          post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event" } }
+          post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event", start_at: Time.now.to_s } }
         end
       end
     end
@@ -97,7 +97,7 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
         test "creates a new event" do
           UserProject.create(user_id: users(:one).id, project_id: projects(:one).id)
           assert_difference 'Event.count', 1 do
-            post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event" } }
+            post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event", start_at: Time.now.to_s } }
           end
           assert_match "A very important event", Event.last.title
         end
@@ -110,12 +110,12 @@ class ProjectsControllerTest < ActionDispatch::IntegrationTest
 
         test "does not create a new event" do
           assert_no_difference 'Event.count' do
-            post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event" } }
+            post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event", start_at: Time.now.to_s } }
           end
         end
 
         test "redirects to projects page with message" do
-          post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event" } }
+          post project_events_path(projects(:one), format: :js), params: { event: { title: "A very important event", start_at: Time.now.to_s } }
           assert_redirected_to projects_path
           assert_equal "You cannot access that project", flash[:notice]
         end
