@@ -1,7 +1,7 @@
 <li class="event event_<%= event.id %>">
   <span class="resource-title"><%= event.title %></span>
 
-  <% if current_user.can_manage_user_owned_resource?(@event) %>
+  <% if current_user.can_manage_events?(@project, @event) %>
     <strong class="resource-action-divider has-text-link">|</strong>
     <%= link_to("Edit", edit_project_event_path(@project, event), class: "has-text-link") %>
     <strong class="resource-action-divider has-text-link">|</strong>
