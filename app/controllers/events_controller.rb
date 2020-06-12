@@ -11,7 +11,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params.merge({project_id: @project.id, user_id: current_user.id}))
-
+    @project.reload
     respond_to do |format|
       if @event.save
         format.js
