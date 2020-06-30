@@ -7,3 +7,7 @@ one:
 two:
   user: two
   commentable: one (TrackVersion)
+
+project_comment:
+  user: one
+  commentable: one (Project)
