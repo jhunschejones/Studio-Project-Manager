@@ -2,6 +2,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/rails' # allows `describe` blocks
+require 'mocha/minitest' # alows mocking
+require 'active_support/testing/time_helpers'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers
@@ -22,6 +24,6 @@ class ActiveSupport::TestCase
 
   # https://github.com/heartcombo/devise/wiki/How-To:-sign-in-and-out-a-user-in-Request-type-specs-(specs-tagged-with-type:-:request)
   include Devise::Test::IntegrationHelpers
-
   include ActiveJob::TestHelper
+  include ActiveSupport::Testing::TimeHelpers
 end

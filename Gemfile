@@ -22,6 +22,8 @@ gem 'blind_index'
 gem 'lockbox'
 gem 'sidekiq'
 
+gem 'newrelic_rpm'
+
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
@@ -50,9 +52,5 @@ group :test do
   gem 'webdrivers'
   gem 'minitest-rails'
   gem 'database_cleaner'
-end
-
-group :production do
-  # Monitor with New Relic in production
-  gem 'newrelic_rpm'
+  gem 'mocha'
 end
