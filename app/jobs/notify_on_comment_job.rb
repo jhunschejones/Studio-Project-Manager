@@ -14,6 +14,9 @@ class NotifyOnCommentJob < ApplicationJob
 
     comment.notifications << notification
     comment.save!
+  rescue ActiveRecord::RecordNotFound => error
+    ::NewRelic::Agent.notice_error(error)
+    Rails.logger.warn "====== Failed to create comment notification ======\nReason: comment, user, or commented-on resource no longer exists"
   end
 
   private

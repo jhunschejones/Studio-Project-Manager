@@ -13,5 +13,8 @@ class NotifyOnEventJob < ApplicationJob
 
     event.notifications << notification
     event.save!
+  rescue ActiveRecord::RecordNotFound => error
+    ::NewRelic::Agent.notice_error(error)
+    Rails.logger.warn "====== Failed to create event notification ======\nReason: the user or event no longer exists"
   end
 end

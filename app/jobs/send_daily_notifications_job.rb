@@ -20,5 +20,9 @@ class SendDailyNotificationsJob < ApplicationJob
         end
       end
     end
+
+  rescue ActiveRecord::RecordNotFound => error
+    ::NewRelic::Agent.notice_error(error)
+    Rails.logger.warn "====== Failed to send daily notifications ======\nReason: project no longer exists"
   end
 end
