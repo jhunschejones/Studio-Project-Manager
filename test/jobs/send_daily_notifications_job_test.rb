@@ -2,6 +2,28 @@ require 'test_helper'
 
 # bundle exec ruby -Itest test/jobs/send_daily_notifications_job_test.rb
 class SendDailyNotificationsJobTest < ActiveJob::TestCase
+  describe "when the project no longer exists" do
+    before do
+      @deleted_project_id = projects(:one).id
+      projects(:one).destroy
+    end
+
+    test "no notification emails are sent" do
+      SendDailyNotificationsJob.perform_now(@deleted_project_id)
+      assert_equal 0, ActionMailer::Base.deliveries.size
+    end
+
+    test "a message is logged instead of blowing up" do
+      expected_warning = "====== Failed to send daily notifications ======\nReason: project no longer exists"
+      test_logger = mock()
+      test_logger.stubs(:warn)
+      Rails.expects(:logger).times(1).returns(test_logger)
+      test_logger.expects(:warn).times(1).with(expected_warning)
+
+      SendDailyNotificationsJob.perform_now(@deleted_project_id)
+    end
+  end
+
   describe "when there are no unsent notifications" do
     setup do
       Project.find(projects(:one).id).notifications.unsent.destroy_all
