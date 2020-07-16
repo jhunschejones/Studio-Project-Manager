@@ -9,3 +9,6 @@ two:
   title: Here Comes The Storm LP1
   upload_link: second.upload.link.com
   is_archived: false
+
+new_project:
+  title: "Super new project"
