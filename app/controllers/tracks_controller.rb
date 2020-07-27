@@ -11,7 +11,7 @@ class TracksController < ApplicationController
 
   def create
     @track = Track.new(track_params.except(:is_completed).merge({project_id: @project.id}))
-
+    @project.reload
     respond_to do |format|
       if @track.save
         format.js
