@@ -1,6 +1,6 @@
 class TrackVersionsController < ApplicationController
   before_action :set_project_or_redirect
-  before_action :track_version_modify_or_redirect, except: [:show]
+  before_action :verify_can_modify_track_version, except: [:show]
   before_action :set_track
   before_action :set_track_version, except: [:show, :create]
 
@@ -31,7 +31,7 @@ class TrackVersionsController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if @track_version && @track_version.destroy
+      if @track_version&.destroy
         format.js
       else
         format.js
@@ -53,7 +53,9 @@ class TrackVersionsController < ApplicationController
     @track_version = TrackVersion.includes(:links, comments: [:user]).find(params[:id])
   end
 
-  def track_version_modify_or_redirect
-    redirect_to project_path(@project), alert: "You cannot modify that track version." unless current_user.can_manage_track_versions?(@project)
+  def verify_can_modify_track_version
+    unless current_user.can_manage_track_versions?(@project)
+      redirect_to project_path(@project), alert: "You cannot modify that track version."
+    end
   end
 end

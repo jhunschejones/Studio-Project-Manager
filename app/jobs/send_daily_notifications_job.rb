@@ -7,17 +7,15 @@ class SendDailyNotificationsJob < ApplicationJob
 
     if unsent_notifications.size > 0
       project.users.each do |user|
-        user_project = UserProject.where(user_id: user.id, project_id: project.id).first
-        if user_project.receive_notifications?
-          if Rails.env.production?
-            UserMailer.daily_notification_email(user.id, project.id, unsent_notifications.pluck(:id)).deliver_later
-          else
-            UserMailer.daily_notification_email(user.id, project.id, unsent_notifications.pluck(:id)).deliver_now
-          end
-        else
-          puts "#{user.name} has notifications disabled for the '#{project.title}' project" unless Rails.env.test?
-          unsent_notifications.each { |notification| notification.update!(users_notified: true) }
+        user_project = UserProject.find_by(user_id: user.id, project_id: project.id)
+
+        unless user_project.receive_notifications?
+          Rails.logger.warn "#{user.name} has notifications disabled for the '#{project.title}' project"
+          next unsent_notifications.each { |notification| notification.update!(users_notified: true) }
         end
+
+        notification_email = UserMailer.daily_notification_email(user.id, project.id, unsent_notifications.pluck(:id))
+        Rails.env.production? ? notification_email.deliver_later : notification_email.deliver_now
       end
     end
 

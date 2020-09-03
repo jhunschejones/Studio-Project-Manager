@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   def new
     @comment = Comment.new
 
-    if @track_version
+    if @track_version.present?
       @form_url = project_track_track_version_comments_path(@project, @track_version.track, @track_version)
     else
       raise "Unrecognized commentable type"
@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params.merge({user_id: current_user.id}))
 
-    if @track_version
+    if @track_version.present?
       @track_version.comments << @comment
       @track_version.save!
     else

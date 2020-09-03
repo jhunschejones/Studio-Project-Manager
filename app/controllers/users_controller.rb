@@ -51,7 +51,9 @@ class UsersController < ApplicationController
   end
 
   def update_preferences
-    return redirect_to edit_user_registration_path, alert: "You cannot modify another user's prefrences." if params[:user_id] != current_user.id.to_s
+    if params[:user_id] != current_user.id.to_s
+      return redirect_to edit_user_registration_path, alert: "You cannot modify another user's prefrences."
+    end
 
     @user_project = UserProject.where(
       user_id: params[:user_id],

@@ -27,18 +27,18 @@ class TracksController < ApplicationController
   end
 
   def destroy
-    if current_user.can_delete_tracks?(@project)
-      respond_to do |format|
-        if @track.destroy
-          format.js
-          format.html { redirect_to project_path(@project) }
-        else
-          format.js
-          format.html { redirect_to project_path(@project), alert: "Unable to delete track." }
-        end
+    unless current_user.can_delete_tracks?(@project)
+      return redirect_to project_path(@project), alert: "You cannot delete tracks."
+    end
+
+    respond_to do |format|
+      if @track.destroy
+        format.js
+        format.html { redirect_to project_path(@project) }
+      else
+        format.js
+        format.html { redirect_to project_path(@project), alert: "Unable to delete track." }
       end
-    else
-      redirect_to project_path(@project), alert: "You cannot delete tracks."
     end
   end
 
