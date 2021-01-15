@@ -13,14 +13,14 @@
   <body>
     <nav class="navbar is-warning" role="navigation" aria-label="main navigation" data-controller="main-nav">
       <div class="navbar-brand">
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-nav.mainNavBurger" data-action="click->main-nav#toggle">
+        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-main-nav-target="mainNavBurger" data-action="click->main-nav#toggle">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div class="navbar-menu" data-target="main-nav.mainNavMenu">
+      <div class="navbar-menu" data-main-nav-target="mainNavMenu">
         <div class="navbar-start">
           <%= link_to(projects_path, class: "navbar-item has-text-dark") do %>
             <span class="icon is-small">
